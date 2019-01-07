@@ -1,0 +1,19 @@
+.header{
+	color: green;
+}
+
+body{
+	padding: 50px;
+}
+
+.city{
+	display: flex;
+	flex-direction: row;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+p{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}

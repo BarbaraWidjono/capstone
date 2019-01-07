@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head lang="en">
+		<title>Food Vouchers</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<link href="../static/css/foodPantries.css" th:href="@{/css/foodPantries.css}" rel="stylesheet" />
+		
+	</head>
+	
+	<body>
+		<h1 class="header">Food Vouchers</h1>
+		<div th:each="store: ${stores}">
+			<h3 th:text="${store.name}"/>
+			<p th:text="${store.street}"/>
+			<div class="city">
+				<p th:text="${store.city}"/>
+				<p th:text="${store.state}"/>
+				<p th:text="${store.zipcode}"/>
+			</div>
+			<p th:text="${store.phone}"/>
+			<p th:text="${store.info}"/>
+			<a th:target="_blank" th:href="${store.website}">Website</a>
+			<a th:target="_blank" th:href="@{https://www.google.com/maps/dir/?api=1&destination={location}+Seattle+WA(location=${store.street})}">Directions</a>
+		</div>
+	</body>
+</html>
