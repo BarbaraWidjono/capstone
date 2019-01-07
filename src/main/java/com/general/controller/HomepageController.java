@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.general.entity.Clinic;
 import com.general.entity.Clothing;
 import com.general.entity.Food;
 import com.general.entity.Foodvoucher;
 import com.general.entity.Housingvoucher;
 import com.general.entity.Transitional;
+import com.general.repository.ClinicRepository;
 import com.general.repository.ClothingRepository;
 import com.general.repository.FoodRepository;
 import com.general.repository.FoodvoucherRepository;
@@ -38,6 +40,9 @@ public class HomepageController{
 	
 	@Autowired
 	private ClothingRepository clothingRepository;
+	
+	@Autowired
+	private ClinicRepository clinicRepository;
 	
 	@GetMapping(path = "/")
 	public String homepage() {
@@ -87,6 +92,15 @@ public class HomepageController{
 
 		model.addAttribute("heading", "Clothing");
 		model.addAttribute("stores", clothes);
+		return "results";
+	}
+	
+	@GetMapping(path="/clinic")
+	public String clinic(Model model) {
+		List<Clinic> clinics = (List<Clinic>) clinicRepository.findAll();
+
+		model.addAttribute("heading", "Clinics");
+		model.addAttribute("stores", clinics);
 		return "results";
 	}
 	
@@ -168,5 +182,21 @@ public class HomepageController{
 			clothes.setInfo(info);
 			clothes.setWebsite(website);
 			clothingRepository.save(clothes);
+		}
+		
+		//http://localhost:8080/addclinic?name=***&street=***&city=***&state=***&zipcode=***&phone=***&info=***&website=***
+		@GetMapping(path="/addclinic")
+		@ResponseBody
+		public void addclinic(@RequestParam String name, @RequestParam String street, @RequestParam String city, @RequestParam String state, @RequestParam String zipcode, @RequestParam String phone, @RequestParam String info, @RequestParam String website) {
+			Clinic office = new Clinic();
+			office.setName(name);
+			office.setStreet(street);
+			office.setCity(city);
+			office.setState(state);
+			office.setZipcode(zipcode);
+			office.setPhone(phone);
+			office.setInfo(info);
+			office.setWebsite(website);
+			clinicRepository.save(office);
 		}
 }
