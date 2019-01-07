@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.general.entity.Food;
 import com.general.entity.Foodvoucher;
+import com.general.entity.Housingvoucher;
 import com.general.entity.Transitional;
 import com.general.repository.FoodRepository;
 import com.general.repository.FoodvoucherRepository;
+import com.general.repository.HousingvoucherRepository;
 import com.general.repository.TransitionalRepository;
 
 @Controller
@@ -28,6 +30,9 @@ public class HomepageController{
 	
 	@Autowired
 	private TransitionalRepository transitionalRepository;
+	
+	@Autowired
+	private HousingvoucherRepository housingvoucherRepository;
 	
 	@GetMapping(path = "/")
 	public String homepage() {
@@ -58,6 +63,15 @@ public class HomepageController{
 		List<Transitional> houses = (List<Transitional>) transitionalRepository.findAll();
 
 		model.addAttribute("heading", "Transitional Housing");
+		model.addAttribute("stores", houses);
+		return "results";
+	}
+	
+	@GetMapping(path="/housingvoucher")
+	public String housingvoucher(Model model) {
+		List<Housingvoucher> houses = (List<Housingvoucher>) housingvoucherRepository.findAll();
+
+		model.addAttribute("heading", "Housing Vouchers");
 		model.addAttribute("stores", houses);
 		return "results";
 	}
@@ -108,5 +122,21 @@ public class HomepageController{
 			house.setInfo(info);
 			house.setWebsite(website);
 			transitionalRepository.save(house);
+		}
+		
+		//http://localhost:8080/addhousingvoucher?name=***&street=***&city=***&state=***&zipcode=***&phone=***&info=***&website=***
+		@GetMapping(path="/addhousingvoucher")
+		@ResponseBody
+		public void addhousingvoucher(@RequestParam String name, @RequestParam String street, @RequestParam String city, @RequestParam String state, @RequestParam String zipcode, @RequestParam String phone, @RequestParam String info, @RequestParam String website) {
+			Housingvoucher house = new Housingvoucher();
+			house.setName(name);
+			house.setStreet(street);
+			house.setCity(city);
+			house.setState(state);
+			house.setZipcode(zipcode);
+			house.setPhone(phone);
+			house.setInfo(info);
+			house.setWebsite(website);
+			housingvoucherRepository.save(house);
 		}
 }
