@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.general.entity.Clothing;
 import com.general.entity.Food;
 import com.general.entity.Foodvoucher;
 import com.general.entity.Housingvoucher;
 import com.general.entity.Transitional;
+import com.general.repository.ClothingRepository;
 import com.general.repository.FoodRepository;
 import com.general.repository.FoodvoucherRepository;
 import com.general.repository.HousingvoucherRepository;
@@ -33,6 +35,9 @@ public class HomepageController{
 	
 	@Autowired
 	private HousingvoucherRepository housingvoucherRepository;
+	
+	@Autowired
+	private ClothingRepository clothingRepository;
 	
 	@GetMapping(path = "/")
 	public String homepage() {
@@ -73,6 +78,15 @@ public class HomepageController{
 
 		model.addAttribute("heading", "Housing Vouchers");
 		model.addAttribute("stores", houses);
+		return "results";
+	}
+	
+	@GetMapping(path="/clothing")
+	public String clothing(Model model) {
+		List<Clothing> clothes = (List<Clothing>) clothingRepository.findAll();
+
+		model.addAttribute("heading", "Clothing");
+		model.addAttribute("stores", clothes);
 		return "results";
 	}
 	
@@ -138,5 +152,21 @@ public class HomepageController{
 			house.setInfo(info);
 			house.setWebsite(website);
 			housingvoucherRepository.save(house);
+		}
+		
+		//http://localhost:8080/addclothing?name=***&street=***&city=***&state=***&zipcode=***&phone=***&info=***&website=***
+		@GetMapping(path="/addclothing")
+		@ResponseBody
+		public void addclothing(@RequestParam String name, @RequestParam String street, @RequestParam String city, @RequestParam String state, @RequestParam String zipcode, @RequestParam String phone, @RequestParam String info, @RequestParam String website) {
+			Clothing clothes = new Clothing();
+			clothes.setName(name);
+			clothes.setStreet(street);
+			clothes.setCity(city);
+			clothes.setState(state);
+			clothes.setZipcode(zipcode);
+			clothes.setPhone(phone);
+			clothes.setInfo(info);
+			clothes.setWebsite(website);
+			clothingRepository.save(clothes);
 		}
 }
