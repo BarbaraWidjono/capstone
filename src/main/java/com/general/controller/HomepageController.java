@@ -38,30 +38,28 @@ public class HomepageController{
 	public String foodPantries(Model model) {
 		
 		List<Food> foods = (List<Food>) foodRepository.findAll();
-//		ArrayList<String> foodSources = new ArrayList<String>();
-//		for(Food food : foods) {
-//			foodSources.add(food.getName());
-//
-//		}
-		
+
+		model.addAttribute("heading", "Food Pantries");
 		model.addAttribute("stores", foods);
-		return "foodPantries";
+		return "results";
 	}
 	
 	@GetMapping(path="/foodvouchers")
 	public String foodVouchers(Model model) {
 		List<Foodvoucher> foods = (List<Foodvoucher>) foodvoucherRepository.findAll();
 
+		model.addAttribute("heading", "Food Vouchers");
 		model.addAttribute("stores", foods);
-		return "foodVouchers";
+		return "results";
 	}
 	
 	@GetMapping(path="/transitional")
 	public String transitional(Model model) {
 		List<Transitional> houses = (List<Transitional>) transitionalRepository.findAll();
 
+		model.addAttribute("heading", "Transitional Housing");
 		model.addAttribute("stores", houses);
-		return "transitional";
+		return "results";
 	}
 	
 	//http://localhost:8080/addfoodpantry?name=***&street=***&city=***&state=***&zipcode=***&phone=***&info=***&website=***
