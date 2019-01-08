@@ -31,15 +31,15 @@
 			<div id="map"></div>
 		</div>
 		
-		<script>
+		<script th:inline="javascript">
 		function initMap() {
-			  // The location of Uluru
+				console.log("hey$$$$$$$$$$$$$$$$$$$$$$")
 			  var local1 = {lat: 47.693497, lng: -122.334025};
 			  var local2 = {lat: 47.707547, lng: -122.339337}
-			  // The map, centered at Uluru
+
 			  var map = new google.maps.Map(
 			      document.getElementById('map'), {zoom: 11, center: local1});
-			  // The marker, positioned at Uluru
+			  
 			  var marker1 = new google.maps.Marker({position: local1, map: map});
 			  var marker2 = new google.maps.Marker({position: local2, map: map});
 			  
@@ -52,12 +52,14 @@
 			            '</div>'+
 			            '</div>';
 
-			        var infowindow = new google.maps.InfoWindow({
-			          content: contentString
-			        });
-			        marker1.addListener('click', function() {
-			          infowindow.open(map, marker1);
-			        });
+		        var infowindow = new google.maps.InfoWindow({
+		          content: contentString
+		        });
+		        marker1.addListener('click', function() {
+		          infowindow.open(map, marker1);
+		        });
+			        
+			
 			}
 		</script>
 		

@@ -53,7 +53,8 @@ public class HomepageController{
 	public String foodPantries(Model model) {
 		
 		List<Food> foods = (List<Food>) foodRepository.findAll();
-
+		
+		model.addAttribute("test", "test");
 		model.addAttribute("heading", "Food Pantries");
 		model.addAttribute("stores", foods);
 		return "results";
