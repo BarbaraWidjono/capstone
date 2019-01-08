@@ -54,7 +54,7 @@ public class HomepageController{
 		
 		List<Food> foods = (List<Food>) foodRepository.findAll();
 		
-		model.addAttribute("test", "test");
+		model.addAttribute("testvariable", "testinggg");
 		model.addAttribute("heading", "Food Pantries");
 		model.addAttribute("stores", foods);
 		return "results";
