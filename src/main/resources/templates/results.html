@@ -9,21 +9,27 @@
 	
 	<body>
 		<h1 class="header" th:text="${heading}"/>
-		<div th:each="store: ${stores}">
-			<h3 th:text="${store.name}"/>
-			<p th:text="${store.street}"/>
-			<div class="city">
-				<p th:text="${store.city}"/>
-				<p th:text="${store.state}"/>
-				<p th:text="${store.zipcode}"/>
-			</div>
-			<p th:text="${store.phone}"/>
-			<p th:text="${store.info}"/>
-			<a th:target="_blank" th:href="${store.website}">Website</a>
-			<a th:target="_blank" th:href="@{https://www.google.com/maps/dir/?api=1&destination={location}+Seattle+WA(location=${store.street})}">Directions</a>
-		</div>
 		
-		<div id="map"></div>
+		<div class="resultspage">
+			<div class="allresults">
+				<div class="result" th:each="store: ${stores}">
+
+						<h3 th:text="${store.name}"/>
+						<p th:text="${store.street}"/>
+						<div class="city">
+							<p th:text="${store.city}"/>
+							<p th:text="${store.state}"/>
+							<p th:text="${store.zipcode}"/>
+						</div>
+						<p th:text="${store.phone}"/>
+						<p th:text="${store.info}"/>
+						<a th:target="_blank" th:href="${store.website}">Website</a>
+						<a th:target="_blank" th:href="@{https://www.google.com/maps/dir/?api=1&destination={location}+Seattle+WA(location=${store.street})}">Directions</a>
+
+				</div>
+			</div>
+			<div id="map"></div>
+		</div>
 		
 		<script>
 		function initMap() {
@@ -32,7 +38,7 @@
 			  var local2 = {lat: 47.707547, lng: -122.339337}
 			  // The map, centered at Uluru
 			  var map = new google.maps.Map(
-			      document.getElementById('map'), {zoom: 12, center: local1});
+			      document.getElementById('map'), {zoom: 11, center: local1});
 			  // The marker, positioned at Uluru
 			  var marker1 = new google.maps.Marker({position: local1, map: map});
 			  var marker2 = new google.maps.Marker({position: local2, map: map});
