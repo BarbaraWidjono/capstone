@@ -22,5 +22,41 @@
 			<a th:target="_blank" th:href="${store.website}">Website</a>
 			<a th:target="_blank" th:href="@{https://www.google.com/maps/dir/?api=1&destination={location}+Seattle+WA(location=${store.street})}">Directions</a>
 		</div>
+		
+		<div id="map"></div>
+		
+		<script>
+		function initMap() {
+			  // The location of Uluru
+			  var local1 = {lat: 47.693497, lng: -122.334025};
+			  var local2 = {lat: 47.707547, lng: -122.339337}
+			  // The map, centered at Uluru
+			  var map = new google.maps.Map(
+			      document.getElementById('map'), {zoom: 12, center: local1});
+			  // The marker, positioned at Uluru
+			  var marker1 = new google.maps.Marker({position: local1, map: map});
+			  var marker2 = new google.maps.Marker({position: local2, map: map});
+			  
+			  var contentString = '<div id="content">'+
+			            '<div id="siteNotice">'+
+			            '</div>'+
+			            '<h1 id="firstHeading" class="firstHeading">Site Name</h1>'+
+			            '<div id="bodyContent">'+
+			            '<p>Site Address</p>'+ '<p>Site Phone</p>' + '<p>Site Info</p>' + 
+			            '</div>'+
+			            '</div>';
+
+			        var infowindow = new google.maps.InfoWindow({
+			          content: contentString
+			        });
+			        marker1.addListener('click', function() {
+			          infowindow.open(map, marker1);
+			        });
+			}
+		</script>
+		
+		<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8&callback=initMap">
+		</script>
 	</body>
 </html>
