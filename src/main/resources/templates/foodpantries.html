@@ -12,7 +12,7 @@
 		
 		<div class="resultspage">
 			<div class="allresults">
-				<div class="result" th:each="store: ${stores}">
+				<div class="result" th:id="${store.id}" th:each="store: ${stores}">
 
 						<h3 th:text="${store.name}"/>
 						<p th:text="${store.street}"/>
@@ -32,6 +32,8 @@
 		</div>
 		
 		<script th:inline="javascript">
+		
+		
 		function initMap() {
 				
 			  //anchor location
