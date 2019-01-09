@@ -40,16 +40,33 @@
 			      document.getElementById('map'), {zoom: 12, center: anchor});
 			  
 			  //adding markers
-			  /* var local1 = {lat: 47.693497, lng: -122.334025};
-			  var marker1 = new google.maps.Marker({position: local1, map: map}); */
+			  var local1 = {lat: 47.665646, lng: -122.380476};
+			  var marker1 = new google.maps.Marker({position: local1, map: map});
+			  
+			  var local2 = {lat: 47.549071, lng: -122.329254};
+			  var marker2 = new google.maps.Marker({position: local2, map: map});
+			  
+			  var local3 = {lat: 47.665585, lng: -122.317619};
+			  var marker3 = new google.maps.Marker({position: local3, map: map});
+			  
+			  var local4 = {lat: 47.661230, lng: -122.338781};
+			  var marker4 = new google.maps.Marker({position: local4, map: map});
+			  
+			  var local5 = {lat: 47.666433, lng: -122.319032};
+			  var marker5 = new google.maps.Marker({position: local5, map: map});
+			  
+			  var local6 = {lat: 47.687425, lng: -122.342213};
+			  var marker6 = new google.maps.Marker({position: local6, map: map});
+			  
+			  var local7 = {lat: 47.722320, lng: -122.291804};
+			  var marker7 = new google.maps.Marker({position: local7, map: map});
 		  
 			  //adding info windows
-			  /* var contentString1 = '<div id="content">'+'<div id="siteNotice">'+'</div>'+
-			            '<h1 id="firstHeading" class="firstHeading">Site Name</h1>'+
+			  var contentString1 = '<div id="content">'+'<div id="siteNotice">'+'</div>'+
+			            '<h1 id="firstHeading" class="firstHeading">Ballard Food Bank</h1>'+
 			            '<div id="bodyContent">'+
-			            '<p>Site Address</p>'+ 
-			            '<p>Site Phone</p>' + 
-			            '<p>Site Info</p>' + 
+			            '<p>5130 Leary Ave NW</p>'+ 
+			            '<p>206-789-7800</p>' + 
 			            '</div>'+
 			            '</div>';
 
@@ -58,7 +75,22 @@
 		        });
 		        marker1.addListener('click', function() {
 		          infowindow1.open(map, marker1);
-		        }); */
+		        });
+		        
+		        var contentString2 = '<div id="content">'+'<div id="siteNotice">'+'</div>'+
+	            '<h1 id="firstHeading" class="firstHeading">St. Vincent De Paul</h1>'+
+	            '<div id="bodyContent">'+
+	            '<p>5950 4th Ave S</p>'+ 
+	            '<p>206-767-6449</p>' + 
+	            '</div>'+
+	            '</div>';
+
+		        var infowindow2 = new google.maps.InfoWindow({
+		          content: contentString2
+		        });
+		        marker2.addListener('click', function() {
+		          infowindow2.open(map, marker2);
+		        });
 			}
 		</script>
 		
