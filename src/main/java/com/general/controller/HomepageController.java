@@ -1,6 +1,7 @@
 package com.general.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,10 +52,25 @@ public class HomepageController{
 	
 	@GetMapping(path="/foodPantries")
 	public String foodPantries(Model model) {
-		
+		//reading data from MySQL via Respository
 		List<Food> foods = (List<Food>) foodRepository.findAll();
 		
-		model.addAttribute("testvariable", "testinggg");
+		//passing location data to template
+		ArrayList<HashMap> allcoordinates = new ArrayList<HashMap>();
+		HashMap<String, Double> coordinates = new HashMap<String, Double>();
+		HashMap<String, Double> coordinates2 = new HashMap<String, Double>();
+		coordinates.put("lat", 47.693497);
+		coordinates.put("lng", -122.334025);
+		allcoordinates.add(coordinates);
+		
+		coordinates2.put("lat", 47.693332);
+		coordinates2.put("lng", -122.339288);
+		allcoordinates.add(coordinates2);
+		
+		System.out.println(allcoordinates);
+		
+		//passing data to template
+		model.addAttribute("testvariable", allcoordinates);
 		model.addAttribute("heading", "Food Pantries");
 		model.addAttribute("stores", foods);
 		return "results";
