@@ -4,16 +4,21 @@ import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.general.entity.Clinic;
 import com.general.entity.Clothing;
@@ -31,8 +36,9 @@ import com.general.repository.TransitionalRepository;
 @Controller
 public class HomepageController{
 	
-	public static final String ACCOUNT_SID = 
-	public static final String AUTH_TOKEN = 
+	public static final String ACCOUNT_SID = "AC7c293b1b5fe37e56b91c8d9f9b3a7841";
+	public static final String AUTH_TOKEN = "0ec8395d9aeba626c45725cf80228bc9";
+
 	
 	@Autowired
 	private FoodRepository foodRepository;
@@ -65,6 +71,23 @@ public class HomepageController{
 		model.addAttribute("heading", "Food Pantries");
 		model.addAttribute("stores", foods);
 		return "foodpantries";
+	}
+	
+
+	@GetMapping(path = "/text")
+	@ResponseStatus(value = HttpStatus.OK)
+	public void message() {
+		Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+
+	    Message message = Message.creator(new PhoneNumber("+12069100369"),
+	        new PhoneNumber("+12064389389"), 
+	        "This is the ship that made the Kessel Run in fourteen parsecs?").create();
+
+	    System.out.println(message.getSid());
+		
+		
+	    System.out.println("Please work again");
+		
 	}
 	
 	@GetMapping(path="/foodvouchers")

@@ -50,11 +50,7 @@
 		  <artifactId>twilio</artifactId>
 		  <version>7.33.1</version>
 		</dependency>
-		<dependency>
-		  <groupId>com.twilio.sdk</groupId>
-		  <artifactId>twilio</artifactId>
-		  <version>7.33.1</version>
-		</dependency>
+		
 	</dependencies>
 
 	<build>
