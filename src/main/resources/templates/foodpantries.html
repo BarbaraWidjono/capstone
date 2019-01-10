@@ -25,27 +25,16 @@
 						<p th:text="${store.info}"/>
 						<a th:target="_blank" th:href="${store.website}">Website</a>
 						<a th:target="_blank" th:href="@{https://www.google.com/maps/dir/?api=1&destination={location}+Seattle+WA(location=${store.street})}">Directions</a>
-						
-						<!-- <a href="/text">Test Text</a> -->
+						<p>Have information about this site texted to you</p>
 						
 						<form action="#" th:action="@{/text}" th:object="${text}" method="post">
-					    	<p>Name <input type="text" th:value="${store.name}" name="name" id="name" /></p>
-					    	
-					       	<p>Address <input type="text" th:value="${store.street}" name="address" id="address" /></p>
-					       	<p>Resource Number <input type="text" th:value="${store.phone}" name="resnumber" id="resnumber" /></p>
-					       	<p>Info <input type="text" th:value="${store.info}" name="info" id="info" /></p>
-					       	<p>Enter your phone number: <input type="text" th:value="testusernumber" name="number" id="number" /></p>
-					        <p><input type="submit" value="Submit" /></p>
+					    	<input type="hidden" th:value="${store.name}" name="name" id="name" />				    	
+					       	<input type="hidden" th:value="${store.street}" name="address" id="address" />
+					       	<input type="hidden" th:value="${store.phone}" name="resnumber" id="resnumber" />
+					       	<input type="hidden" th:value="${store.info}" name="info" id="info" />
+					       	<p>Your phone number(example: 2063215678): <input type="tel" th:field="*{number}" pattern="[0-9]{10}" /></p>
+					        <p><input type="submit" value="Send" /></p>
 					    </form>
-					    
-					    <!-- <form action="#" th:action="@{/text}" th:object="${text}" method="post">
-					    	<p>Name <input type="text" th:field="*{name}" /></p>
-					       	<p>Address <input type="text" th:field="*{address}" /></p>
-					       	<p>Resource Number <input type="text" th:field="*{resnumber}" /></p>
-					       	<p>Info <input type="text" th:field="*{info}" /></p>
-					       	<p>User Number <input type="text" th:field="*{number}" /></p>
-					        <p><input type="submit" value="Submit" /></p>
-					    </form> -->
 						
 				</div>
 			</div>
