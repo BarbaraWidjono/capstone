@@ -29,10 +29,11 @@
 						<!-- <a href="/text">Test Text</a> -->
 						
 						<form action="#" th:action="@{/text}" th:object="${text}" method="post">
-					    	<p>Name <input type="text" th:value="testname" name="name" id="name" /></p>
-					       	<p>Address <input type="text" th:value="testaddress" name="address" id="address" /></p>
-					       	<p>Resource Number <input type="text" th:value="testresnumber" name="resnumber" id="resnumber" /></p>
-					       	<p>Info <input type="text" th:value="testinfo" name="info" id="info" /></p>
+					    	<p>Name <input type="text" th:value="${store.name}" name="name" id="name" /></p>
+					    	
+					       	<p>Address <input type="text" th:value="${store.street}" name="address" id="address" /></p>
+					       	<p>Resource Number <input type="text" th:value="${store.phone}" name="resnumber" id="resnumber" /></p>
+					       	<p>Info <input type="text" th:value="${store.info}" name="info" id="info" /></p>
 					       	<p>Enter your phone number: <input type="text" th:value="testusernumber" name="number" id="number" /></p>
 					        <p><input type="submit" value="Submit" /></p>
 					    </form>
@@ -192,7 +193,7 @@
 		</script>
 		
 		<script async defer
-		src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap">
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8&callback=initMap">
 		</script>
 	</body>
 </html>

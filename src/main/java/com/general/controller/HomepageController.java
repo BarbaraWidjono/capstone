@@ -87,7 +87,8 @@ public class HomepageController{
 	        "This is the ship that made the Kessel Run in fourteen parsecs?").create();
 
 	    System.out.println(message.getSid());
-		
+	    System.out.println(message.getErrorCode());
+	    
 		System.out.println(text.getName());
 		System.out.println(text.getAddress());
 		System.out.println(text.getResnumber());
