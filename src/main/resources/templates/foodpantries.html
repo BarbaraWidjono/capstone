@@ -28,6 +28,15 @@
 						
 						<a href="/text">Test Text</a>
 						
+						<form action="#" th:action="@{/text}" th:object="${text}" method="post">
+					    	<p>Name <input type="text" th:field="*{name}" /></p>
+					       	<p>Address <input type="text" th:field="*{address}" /></p>
+					       	<p>Resource Number <input type="text" th:field="*{resnumber}" /></p>
+					       	<p>Info <input type="text" th:field="*{info}" /></p>
+					       	<p>User Number <input type="text" th:field="*{number}" /></p>
+					        <p><input type="submit" value="Submit" /></p>
+					    </form>
+						
 				</div>
 			</div>
 			<div id="map"></div>

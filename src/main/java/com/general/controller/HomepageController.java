@@ -26,12 +26,15 @@ import com.general.entity.Food;
 import com.general.entity.Foodvoucher;
 import com.general.entity.Housingvoucher;
 import com.general.entity.Transitional;
+import com.general.entity.Text;
+
 import com.general.repository.ClinicRepository;
 import com.general.repository.ClothingRepository;
 import com.general.repository.FoodRepository;
 import com.general.repository.FoodvoucherRepository;
 import com.general.repository.HousingvoucherRepository;
 import com.general.repository.TransitionalRepository;
+
 
 @Controller
 public class HomepageController{
@@ -64,7 +67,7 @@ public class HomepageController{
 	}
 	
 	@GetMapping(path="/foodPantries")
-	public String foodPantries(Model model) {
+	public String foodPantries(Model model, Text text) {
 		//reading data from MySQL via Respository
 		List<Food> foods = (List<Food>) foodRepository.findAll();
 		
@@ -73,10 +76,10 @@ public class HomepageController{
 		return "foodpantries";
 	}
 	
-
-	@GetMapping(path = "/text")
+	
+	@PostMapping(path = "/text")
 	@ResponseStatus(value = HttpStatus.OK)
-	public void message() {
+	public void message(@ModelAttribute Text text) {
 		Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
 	    Message message = Message.creator(new PhoneNumber("+12069100369"),
@@ -89,6 +92,22 @@ public class HomepageController{
 	    System.out.println("Please work again");
 		
 	}
+
+//	@GetMapping(path = "/text")
+//	@ResponseStatus(value = HttpStatus.OK)
+//	public void message() {
+//		Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+//
+//	    Message message = Message.creator(new PhoneNumber("+12069100369"),
+//	        new PhoneNumber("+12064389389"), 
+//	        "This is the ship that made the Kessel Run in fourteen parsecs?").create();
+//
+//	    System.out.println(message.getSid());
+//		
+//		
+//	    System.out.println("Please work again");
+//		
+//	}
 	
 	@GetMapping(path="/foodvouchers")
 	public String foodVouchers(Model model) {
