@@ -88,7 +88,11 @@ public class HomepageController{
 
 	    System.out.println(message.getSid());
 		
-		
+		System.out.println(text.getName());
+		System.out.println(text.getAddress());
+		System.out.println(text.getResnumber());
+		System.out.println(text.getInfo());
+		System.out.println(text.getNumber());
 	    System.out.println("Please work again");
 		
 	}
