@@ -1,5 +1,9 @@
 package com.general.controller;
 
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +30,9 @@ import com.general.repository.TransitionalRepository;
 
 @Controller
 public class HomepageController{
+	
+	public static final String ACCOUNT_SID = 
+	public static final String AUTH_TOKEN = 
 	
 	@Autowired
 	private FoodRepository foodRepository;
