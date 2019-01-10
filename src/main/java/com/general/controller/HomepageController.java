@@ -80,21 +80,27 @@ public class HomepageController{
 	@PostMapping(path = "/text")
 	@ResponseStatus(value = HttpStatus.OK)
 	public void message(@ModelAttribute Text text) {
+		
+		String textBody = text.getName() + " " + text.getAddress() + " " + text.getResnumber() + " " + text.getInfo();
+		
 		Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
 	    Message message = Message.creator(new PhoneNumber("+12069100369"),
 	        new PhoneNumber("+12064389389"), 
-	        "This is the ship that made the Kessel Run in fourteen parsecs?").create();
+	        textBody).create();
 
 	    System.out.println(message.getSid());
 	    System.out.println(message.getErrorCode());
 	    
-		System.out.println(text.getName());
-		System.out.println(text.getAddress());
-		System.out.println(text.getResnumber());
-		System.out.println(text.getInfo());
-		System.out.println(text.getNumber());
-	    System.out.println("Please work again");
+	    
+	    
+//		System.out.println(text.getName());
+//		System.out.println(text.getAddress());
+//		System.out.println(text.getResnumber());
+//		System.out.println(text.getInfo());
+//		System.out.println(text.getNumber());
+//	    System.out.println(textBody);
+//	    System.out.println("Please work again");
 		
 	}
 
