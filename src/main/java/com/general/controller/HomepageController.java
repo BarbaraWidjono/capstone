@@ -39,8 +39,8 @@ import com.general.repository.TransitionalRepository;
 @Controller
 public class HomepageController{
 	
-	public static final String ACCOUNT_SID = "AC7c293b1b5fe37e56b91c8d9f9b3a7841";
-	public static final String AUTH_TOKEN = "0ec8395d9aeba626c45725cf80228bc9";
+	public static final String ACCOUNT_SID = "";
+	public static final String AUTH_TOKEN = "";
 
 	
 	@Autowired
