@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.general.entity.Clinic;
 import com.general.entity.Clothing;
@@ -76,10 +77,9 @@ public class HomepageController{
 		return "foodpantries";
 	}
 	
-	
 	@PostMapping(path = "/text")
-	@ResponseStatus(value = HttpStatus.OK)
-	public void message(@ModelAttribute Text text) {
+//	@ResponseStatus(value = HttpStatus.OK)
+	public RedirectView message(@ModelAttribute Text text) {
 		
 		String textBody = text.getName() + " " + text.getAddress() + " " + text.getResnumber() + " " + text.getInfo();
 		String receiver = "+1" + text.getNumber();
@@ -90,11 +90,45 @@ public class HomepageController{
 	        new PhoneNumber("+12064389389"), 
 	        textBody).create();
 
+	   
 	    //Insert Error Handling
-	    System.out.println(message.getSid());
-	    System.out.println(message.getErrorCode());
+	    if(message.getErrorCode() == null) {
+	    	return new RedirectView("/foodPantries");
+	    }else {
+	    	return new RedirectView("/foodPantries");
+	    }
+//	    System.out.println(message.getSid());
+//	    System.out.println(message.getErrorCode());
 	    
 		
+	}
+	
+//	@PostMapping(path = "/text")
+//	@ResponseStatus(value = HttpStatus.OK)
+//	public void message(@ModelAttribute Text text) {
+//		
+//		String textBody = text.getName() + " " + text.getAddress() + " " + text.getResnumber() + " " + text.getInfo();
+//		String receiver = "+1" + text.getNumber();
+//		
+//		Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+//
+//	    Message message = Message.creator(new PhoneNumber(receiver),
+//	        new PhoneNumber("+12064389389"), 
+//	        textBody).create();
+//
+//	    //Insert Error Handling
+//	    if(message.getErrorCode() == null) {
+//	    	System.out.println("Message success");
+//	    }
+//	    System.out.println(message.getSid());
+//	    System.out.println(message.getErrorCode());
+//	    
+//		
+//	}
+	
+	public String textFailure() {
+		String failure = "Unable to send text. Please hit back button and try again.";
+		return failure;
 	}
 	
 	@GetMapping(path="/foodvouchers")
