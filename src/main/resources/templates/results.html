@@ -32,13 +32,32 @@
 		</div>
 		
 		<script th:inline="javascript">
+		
 		function initMap() {
-				
+			  console.log("heeelooooo******************");
 			  //anchor location
 			  var anchor = {lat: 47.685880, lng: -122.337290}
 			  var map = new google.maps.Map(
 			      document.getElementById('map'), {zoom: 12, center: anchor});
 			  
+			  var locations = [[${sources}]];
+			  console.log(locations);
+			  
+			  var marker;
+			  for(i=0; i<locations.length; i++){
+				  var latitude = parseFloat(locations[i]["lat"]);
+				  var longitude = parseFloat(locations[i]["lng"]);
+				  var info = locations[i]["info"];
+				  
+				  marker = new google.maps.Marker({position: {lat: latitude, lng: longitude}, map: map});
+				  var infowindow = new google.maps.InfoWindow({
+			          content: info
+			        });
+			        marker.addListener('click', function() {
+			          infowindow.open(map, marker);
+			        });
+			  }
+			 
 			  //adding markers
 			  /* var local1 = {lat: 47.693497, lng: -122.334025};
 			  var marker1 = new google.maps.Marker({position: local1, map: map}); */

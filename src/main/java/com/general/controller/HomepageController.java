@@ -89,12 +89,13 @@ public class HomepageController{
 	    Message message = Message.creator(new PhoneNumber(receiver),
 	        new PhoneNumber("+12064389389"), 
 	        textBody).create();
-
+//	    System.out.println(message.accoutSid);
 	   
 	    //Insert Error Handling
 	    if(message.getErrorCode() == null) {
 	    	return new RedirectView("/foodPantries");
 	    }else {
+//	    	System.out.println(message.errorCode);
 	    	return new RedirectView("/foodPantries");
 	    }
 //	    System.out.println(message.getSid());
@@ -103,38 +104,57 @@ public class HomepageController{
 		
 	}
 	
-//	@PostMapping(path = "/text")
-//	@ResponseStatus(value = HttpStatus.OK)
-//	public void message(@ModelAttribute Text text) {
-//		
-//		String textBody = text.getName() + " " + text.getAddress() + " " + text.getResnumber() + " " + text.getInfo();
-//		String receiver = "+1" + text.getNumber();
-//		
-//		Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-//
-//	    Message message = Message.creator(new PhoneNumber(receiver),
-//	        new PhoneNumber("+12064389389"), 
-//	        textBody).create();
-//
-//	    //Insert Error Handling
-//	    if(message.getErrorCode() == null) {
-//	    	System.out.println("Message success");
-//	    }
-//	    System.out.println(message.getSid());
-//	    System.out.println(message.getErrorCode());
-//	    
-//		
-//	}
-	
-	public String textFailure() {
-		String failure = "Unable to send text. Please hit back button and try again.";
-		return failure;
-	}
 	
 	@GetMapping(path="/foodvouchers")
 	public String foodVouchers(Model model) {
+		//Read from db
 		List<Foodvoucher> foods = (List<Foodvoucher>) foodvoucherRepository.findAll();
+		
+		ArrayList<HashMap> coordinates = new ArrayList<HashMap>();
+		
+		for(Foodvoucher food : foods) {
+			//Create coordinates
+			System.out.println(food.getName());
+			HashMap<String, String> location = new HashMap<String, String>();
+			location.put("lat", "47.549072");
+			location.put("lng", "-122.329254");
 
+			//Create infowindows
+			String infowindow = String.format("<div id=\"content\"><div id=\"siteNotice\"></div>\n" + 
+					"<h1 id=\"firstHeading\" class=\"firstHeading\">%s</h1>\n" + 
+					"<div id=\"bodyContent\">\n" + 
+					"<p>%s</p> \n" + 
+					"<p>%s</p> \n" + 
+					"<p>%s</p> \n" + 
+					"</div>\n" + 
+					"</div>", food.getName(), food.getStreet(), food.getPhone(), food.getInfo());
+			location.put("info", infowindow);
+			coordinates.add(location);
+			System.out.println(coordinates);			
+		}
+		
+//		for(Foodvoucher food : foods) {
+//			//Create coordinates
+//			System.out.println(food.getName());
+//			HashMap<String, String> location = new HashMap<String, String>();
+//			location.put("lat", "47.549072");
+//			location.put("lng", "-122.329254");
+//
+//			//Create infowindows
+//			String infowindow = String.format("<div id=\"content\">'+'<div id=\"siteNotice\">'+'</div>'+\n" + 
+//					"'<h1 id=\"firstHeading\" class=\"firstHeading\">%s</h1>'+\n" + 
+//					"'<div id=\"bodyContent\">'+\n" + 
+//					"'<p>%s</p>'+ \n" + 
+//					"'<p>%s</p>' + \n" + 
+//					"'<p>%s</p>' + \n" + 
+//					"'</div>'+\n" + 
+//					"'</div>'", food.getName(), food.getStreet(), food.getPhone(), food.getInfo());
+//			location.put("info", infowindow);
+//			coordinates.add(location);
+//			System.out.println(coordinates);			
+//		}
+		
+		model.addAttribute("sources", coordinates);
 		model.addAttribute("heading", "Food Vouchers");
 		model.addAttribute("stores", foods);
 		return "results";
