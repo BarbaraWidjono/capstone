@@ -153,12 +153,37 @@ public class HomepageController{
 		
 		ArrayList<HashMap> coordinates = new ArrayList<HashMap>();
 		
+		//target endpoint: https://maps.googleapis.com/maps/api/geocode/json?address=700 5th Ave,+Seattle,+WA&key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8
+		
 		for(Foodvoucher food : foods) {
-			//Create coordinates
-//			System.out.println(food.getName());
+			//Create endpoint
+			String baseURL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
+			String street = food.getStreet();
+			String endURL = ",+Seattle,+WA&key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8";
+			String endpoint = baseURL + street + endURL;
+			System.out.println(endpoint);
+			
+			//api call
+			RestTemplate restTemplate = new RestTemplate();
+			String resourceURL = endpoint;
+			ResponseEntity<String> responsey = restTemplate.getForEntity(resourceURL, String.class);
+			String jsonString = responsey.getBody();
+			
+			GsonBuilder builder = new GsonBuilder();
+			builder.setPrettyPrinting();
+			Gson gson = builder.create();
+			Response response = gson.fromJson(jsonString, Response.class);
+			
+			//Convert coordinates to string
+			Double latitude = response.getResults().get(0).getGeometry().getLocation().getLat();
+			String latitudeString = String.valueOf(latitude);			
+			Double longitude = response.getResults().get(0).getGeometry().getLocation().getLng();
+			String longitudeString = String.valueOf(longitude);
+			
+			//Insert gps coordinates
 			HashMap<String, String> location = new HashMap<String, String>();
-			location.put("lat", "47.549072");
-			location.put("lng", "-122.329254");
+			location.put("lat", latitudeString);
+			location.put("lng", longitudeString);
 
 			//Create infowindows
 			String infowindow = String.format("<div id=\"content\"><div id=\"siteNotice\"></div>\n" + 
@@ -171,30 +196,26 @@ public class HomepageController{
 					"</div>", food.getName(), food.getStreet(), food.getPhone(), food.getInfo());
 			location.put("info", infowindow);
 			coordinates.add(location);
-//			System.out.println(coordinates);			
+			System.out.println(coordinates);			
 		}
 		
 		
 		//api call for address to gps coordinates
-		RestTemplate restTemplate = new RestTemplate();
-		String resourceURL = "https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8";
-		ResponseEntity<String> responsey = restTemplate.getForEntity(resourceURL, String.class);
-//		System.out.println(responsey.getBody());
-			
-		String jsonString = responsey.getBody();
-		
-		GsonBuilder builder = new GsonBuilder();
-		builder.setPrettyPrinting();
-		Gson gson = builder.create();
-		
-		Response response = gson.fromJson(jsonString, Response.class);
+//		RestTemplate restTemplate = new RestTemplate();
+//		String resourceURL = "https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8";
+//		ResponseEntity<String> responsey = restTemplate.getForEntity(resourceURL, String.class);
+//		System.out.println(responsey.getBody());			
+//		String jsonString = responsey.getBody();		
+//		GsonBuilder builder = new GsonBuilder();
+//		builder.setPrettyPrinting();
+//		Gson gson = builder.create();		
+//		Response response = gson.fromJson(jsonString, Response.class);
 //		System.out.println(response.getResults().get(0).getGeometry().getLocation().getLat());
-		Double latitude = response.getResults().get(0).getGeometry().getLocation().getLat();
-		Double longitude = response.getResults().get(0).getGeometry().getLocation().getLng();
-		System.out.println("The latitude: " + latitude);
-		System.out.println("The longitude:" + longitude);
-		
-		jsonString = gson.toJson(response);
+//		Double latitude = response.getResults().get(0).getGeometry().getLocation().getLat();
+//		Double longitude = response.getResults().get(0).getGeometry().getLocation().getLng();
+//		System.out.println("The latitude: " + latitude);
+//		System.out.println("The longitude:" + longitude);		
+//		jsonString = gson.toJson(response);
 //		System.out.println(jsonString);
 
 		
