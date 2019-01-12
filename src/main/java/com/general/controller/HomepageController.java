@@ -4,13 +4,14 @@ import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 
-
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,13 +20,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.general.repository.UserRepository;
 import com.general.entity.Clinic;
 import com.general.entity.Clothing;
 import com.general.entity.Food;
 import com.general.entity.Foodvoucher;
 import com.general.entity.Housingvoucher;
+import com.general.entity.Login;
 import com.general.entity.Transitional;
 import com.general.entity.Text;
 
@@ -62,9 +68,23 @@ public class HomepageController{
 	@Autowired
 	private ClinicRepository clinicRepository;
 	
+	@Autowired
+	private UserRepository userRepository;
+	
 	@GetMapping(path = "/")
 	public String homepage() {
 		return "homepage";
+	}
+	
+	@GetMapping(path = "/loginform")
+	public String loginform(Model model, Login login) {
+		return "loginform";
+	}
+	
+	@PostMapping(path = "/login")
+	@ResponseStatus(value = HttpStatus.OK)
+	public void login(@ModelAttribute Login login) {
+		System.out.println("Inside the login method"); 
 	}
 	
 	@GetMapping(path="/foodPantries")
@@ -114,7 +134,7 @@ public class HomepageController{
 		
 		for(Foodvoucher food : foods) {
 			//Create coordinates
-			System.out.println(food.getName());
+//			System.out.println(food.getName());
 			HashMap<String, String> location = new HashMap<String, String>();
 			location.put("lat", "47.549072");
 			location.put("lng", "-122.329254");
@@ -130,30 +150,35 @@ public class HomepageController{
 					"</div>", food.getName(), food.getStreet(), food.getPhone(), food.getInfo());
 			location.put("info", infowindow);
 			coordinates.add(location);
-			System.out.println(coordinates);			
+//			System.out.println(coordinates);			
 		}
 		
-//		for(Foodvoucher food : foods) {
-//			//Create coordinates
-//			System.out.println(food.getName());
-//			HashMap<String, String> location = new HashMap<String, String>();
-//			location.put("lat", "47.549072");
-//			location.put("lng", "-122.329254");
-//
-//			//Create infowindows
-//			String infowindow = String.format("<div id=\"content\">'+'<div id=\"siteNotice\">'+'</div>'+\n" + 
-//					"'<h1 id=\"firstHeading\" class=\"firstHeading\">%s</h1>'+\n" + 
-//					"'<div id=\"bodyContent\">'+\n" + 
-//					"'<p>%s</p>'+ \n" + 
-//					"'<p>%s</p>' + \n" + 
-//					"'<p>%s</p>' + \n" + 
-//					"'</div>'+\n" + 
-//					"'</div>'", food.getName(), food.getStreet(), food.getPhone(), food.getInfo());
-//			location.put("info", infowindow);
-//			coordinates.add(location);
-//			System.out.println(coordinates);			
-//		}
+		//api call for address to gps coordinates
+		RestTemplate restTemplate = new RestTemplate();
+		String resourceURL = "https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8";
+		ResponseEntity<String> response = restTemplate.getForEntity(resourceURL, String.class);
+		System.out.println(response.getBody());
+			
+//		String body = response.getBody();
+//		System.out.println(body);
+//		System.out.println(body.get("geometry"));
 		
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode root;
+		try {
+			root = mapper.readTree(response.getBody());
+			JsonNode name = root.path("name");
+			System.out.println(root);
+//			System.out.println(root.get("geometry"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+
+		
+		//passing data to template
 		model.addAttribute("sources", coordinates);
 		model.addAttribute("heading", "Food Vouchers");
 		model.addAttribute("stores", foods);
