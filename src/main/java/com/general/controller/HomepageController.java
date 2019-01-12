@@ -31,8 +31,10 @@ import com.general.entity.Clinic;
 import com.general.entity.Clothing;
 import com.general.entity.Food;
 import com.general.entity.Foodvoucher;
+import com.general.entity.Geometry;
 import com.general.entity.Housingvoucher;
 import com.general.entity.Login;
+import com.general.entity.Response;
 import com.general.entity.Transitional;
 import com.general.entity.Text;
 
@@ -42,6 +44,9 @@ import com.general.repository.FoodRepository;
 import com.general.repository.FoodvoucherRepository;
 import com.general.repository.HousingvoucherRepository;
 import com.general.repository.TransitionalRepository;
+
+import com.google.gson.Gson; 
+import com.google.gson.GsonBuilder; 
 
 
 @Controller
@@ -169,29 +174,24 @@ public class HomepageController{
 //			System.out.println(coordinates);			
 		}
 		
+		
 		//api call for address to gps coordinates
 		RestTemplate restTemplate = new RestTemplate();
 		String resourceURL = "https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8";
-		ResponseEntity<String> response = restTemplate.getForEntity(resourceURL, String.class);
-		System.out.println(response.getBody());
+		ResponseEntity<String> responsey = restTemplate.getForEntity(resourceURL, String.class);
+//		System.out.println(responsey.getBody());
 			
-//		String body = response.getBody();
-//		System.out.println(body);
-//		System.out.println(body.get("geometry"));
+		String jsonString = responsey.getBody();
 		
-		ObjectMapper mapper = new ObjectMapper();
-		JsonNode root;
-		try {
-			root = mapper.readTree(response.getBody());
-			JsonNode name = root.path("name");
-			System.out.println(root);
-//			System.out.println(root.get("geometry"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		GsonBuilder builder = new GsonBuilder();
+		builder.setPrettyPrinting();
+		Gson gson = builder.create();
 		
+		Response response = gson.fromJson(jsonString, Response.class);
+		System.out.println(response.getResults().getGeometry().getLocation().getLat());
 		
+		jsonString = gson.toJson(response);
+		System.out.println(jsonString);
 
 		
 		//passing data to template
