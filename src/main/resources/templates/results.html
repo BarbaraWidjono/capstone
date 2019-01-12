@@ -43,7 +43,7 @@
 			  var locations = [[${sources}]];
 			  console.log(locations);
 			  
-			  var marker;
+			  var marker, i;
 			  for(i=0; i<locations.length; i++){
 				  var latitude = parseFloat(locations[i]["lat"]);
 				  var longitude = parseFloat(locations[i]["lng"]);
@@ -55,7 +55,7 @@
 			        });
 			        marker.addListener('click', function() {
 			          infowindow.open(map, marker);
-			        });
+			        }); 
 			  }
 			 
 			  

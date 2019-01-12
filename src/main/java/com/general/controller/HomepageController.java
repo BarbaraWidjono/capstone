@@ -101,8 +101,8 @@ public class HomepageController{
 		ArrayList compare = new ArrayList();
 		System.out.println(compare);
 		
-		if(pair == compare) {
-			System.out.println("Yo, this pair does NOT exist");
+		if(pair.size() == 0) {
+			System.out.println("This pair does NOT exist");
 		}else {
 			System.out.println("This pair exists");
 		}
