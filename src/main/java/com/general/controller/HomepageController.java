@@ -26,6 +26,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.general.repository.UserRepository;
+import com.general.entity.User;
 import com.general.entity.Clinic;
 import com.general.entity.Clothing;
 import com.general.entity.Food;
@@ -84,7 +85,22 @@ public class HomepageController{
 	@PostMapping(path = "/login")
 	@ResponseStatus(value = HttpStatus.OK)
 	public void login(@ModelAttribute Login login) {
-		System.out.println("Inside the login method"); 
+		System.out.println("Entered name:" + login.getLoginname());
+		System.out.println("Entered password:" + login.getLoginpassword());
+		String name = login.getLoginname();
+		String pass = login.getLoginpassword();
+		
+		List<User> pair = userRepository.findByUsernameAndPassword(name, pass);
+		System.out.println(pair);
+		
+		ArrayList compare = new ArrayList();
+		System.out.println(compare);
+		
+		if(pair == compare) {
+			System.out.println("Yo, this pair does NOT exist");
+		}else {
+			System.out.println("This pair exists");
+		}
 	}
 	
 	@GetMapping(path="/foodPantries")
