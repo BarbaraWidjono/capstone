@@ -188,10 +188,14 @@ public class HomepageController{
 		Gson gson = builder.create();
 		
 		Response response = gson.fromJson(jsonString, Response.class);
-		System.out.println(response.getResults().getGeometry().getLocation().getLat());
+//		System.out.println(response.getResults().get(0).getGeometry().getLocation().getLat());
+		Double latitude = response.getResults().get(0).getGeometry().getLocation().getLat();
+		Double longitude = response.getResults().get(0).getGeometry().getLocation().getLng();
+		System.out.println("The latitude: " + latitude);
+		System.out.println("The longitude:" + longitude);
 		
 		jsonString = gson.toJson(response);
-		System.out.println(jsonString);
+//		System.out.println(jsonString);
 
 		
 		//passing data to template
