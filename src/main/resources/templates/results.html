@@ -34,11 +34,53 @@
 		<script th:inline="javascript">
 		
 		function initMap() {
-			  console.log("heeelooooo******************");
+			var map;
+			var markers = [];
+			  //anchor location
+			  var anchor = {lat: 47.685880, lng: -122.337290};
+			  map = new google.maps.Map(
+			      document.getElementById('map'), {zoom: 12, center: new google.maps.LatLng(47.685880, -122.337290), mapTypeId: google.maps.MapTypeId.ROADMAP});
+			  
+			  var locations = [[${sources}]];
+			  console.log(locations);
+			  
+			  var marker;
+			  for(var i=0; i<locations.length; i++){
+				  
+				  var latitude = parseFloat(locations[i]["lat"]);
+				  var longitude = parseFloat(locations[i]["lng"]);
+				  var latlngset = new google.maps.LatLng(latitude, longitude);
+				  var info = locations[i]["info"];
+				  
+				  markers[i] = new google.maps.Marker({
+					  position: {lat: latitude, lng: longitude},
+					  map: map,
+					  html: info,
+					  id: i
+				  });
+				  			  
+				  google.maps.event.addListener(markers[i], 'click', function(){
+					  var infowindow = new google.maps.InfoWindow({
+						  id: this.id,
+						  content: this.html,
+						  position: this.getPosition()
+					  });
+					  google.maps.event.addListenerOnce(infowindow, 'closeclick',
+							  function(){
+						  markers[this.id].setVisible(true);
+					  });
+					  this.setVisible(false);
+					  infowindow.open(map);
+				  });
+				  
+			  }  
+			}
+		
+		/* function initMap() {
 			  //anchor location
 			  var anchor = {lat: 47.685880, lng: -122.337290}
 			  var map = new google.maps.Map(
-			      document.getElementById('map'), {zoom: 12, center: anchor});
+			      document.getElementById('map'), {zoom: 12, center: anchor, mapTypeId: google.maps.MapTypeId.ROADMAP});
 			  
 			  var locations = [[${sources}]];
 			  console.log(locations);
@@ -47,19 +89,19 @@
 			  for(i=0; i<locations.length; i++){
 				  var latitude = parseFloat(locations[i]["lat"]);
 				  var longitude = parseFloat(locations[i]["lng"]);
+				  var latlngset = new google.maps.LatLng(latitude, longitude);
 				  var info = locations[i]["info"];
 				  
-				  marker = new google.maps.Marker({position: {lat: latitude, lng: longitude}, map: map});
+				  marker = new google.maps.Marker({position: latlngset, map: map});
 				  var infowindow = new google.maps.InfoWindow({
-			          content: info
+			          content: info, position: latlngset
 			        });
+				  
 			        marker.addListener('click', function() {
 			          infowindow.open(map, marker);
 			        }); 
-			  }
-			 
-			  
-			}
+			  }  
+			} */
 		</script>
 		
 		<script async defer
