@@ -104,36 +104,238 @@ public class HomepageController{
 	}
 	
 	@GetMapping(path="/transitional")
-	public String transitional(Model model) {
+	public String transitional(Model model, Text text) {
+		//Read records from db
 		List<Transitional> houses = (List<Transitional>) transitionalRepository.findAll();
+		
+		ArrayList<HashMap> coordinates = new ArrayList<HashMap>();
+		
+		//target endpoint: https://maps.googleapis.com/maps/api/geocode/json?address=700 5th Ave,+Seattle,+WA&key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8
+		
+		for(Transitional house : houses) {
+			//Create endpoint
+			String baseURL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
+			String street = house.getStreet();
+			String endURL = ",+Seattle,+WA&key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8";
+			String endpoint = baseURL + street + endURL;
+			System.out.println(endpoint);
+			
+			//api call
+			RestTemplate restTemplate = new RestTemplate();
+			String resourceURL = endpoint;
+			ResponseEntity<String> responsey = restTemplate.getForEntity(resourceURL, String.class);
+			String jsonString = responsey.getBody();
+			
+			GsonBuilder builder = new GsonBuilder();
+			builder.setPrettyPrinting();
+			Gson gson = builder.create();
+			Response response = gson.fromJson(jsonString, Response.class);
+			
+			//Convert coordinates to string
+			Double latitude = response.getResults().get(0).getGeometry().getLocation().getLat();
+			String latitudeString = String.valueOf(latitude);			
+			Double longitude = response.getResults().get(0).getGeometry().getLocation().getLng();
+			String longitudeString = String.valueOf(longitude);
+			
+			//Insert gps coordinates
+			HashMap<String, String> location = new HashMap<String, String>();
+			location.put("lat", latitudeString);
+			location.put("lng", longitudeString);
 
+			//Create infowindows
+			String infowindow = String.format("<div id=\"content\"><div id=\"siteNotice\"></div>\n" + 
+					"<h1 id=\"firstHeading\" class=\"firstHeading\">%s</h1>\n" + 
+					"<div id=\"bodyContent\">\n" + 
+					"<p>%s</p> \n" + 
+					"<p>%s</p> \n" + 
+					"<p>%s</p> \n" + 
+					"</div>\n" + 
+					"</div>", house.getName(), house.getStreet(), house.getPhone(), house.getInfo());
+			location.put("info", infowindow);
+			coordinates.add(location);
+			System.out.println(coordinates);			
+		}
+		
+		//passing data to template
+		model.addAttribute("sources", coordinates);
 		model.addAttribute("heading", "Transitional Housing");
 		model.addAttribute("stores", houses);
 		return "results";
 	}
 	
 	@GetMapping(path="/housingvoucher")
-	public String housingvoucher(Model model) {
+	public String housingvoucher(Model model, Text text) {
+		//read db
 		List<Housingvoucher> houses = (List<Housingvoucher>) housingvoucherRepository.findAll();
+		
+		ArrayList<HashMap> coordinates = new ArrayList<HashMap>();
+		
+		//target endpoint: https://maps.googleapis.com/maps/api/geocode/json?address=700 5th Ave,+Seattle,+WA&key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8
+		
+		for(Housingvoucher house : houses) {
+			//Create endpoint
+			String baseURL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
+			String street = house.getStreet();
+			String endURL = ",+Seattle,+WA&key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8";
+			String endpoint = baseURL + street + endURL;
+			System.out.println(endpoint);
+			
+			//api call
+			RestTemplate restTemplate = new RestTemplate();
+			String resourceURL = endpoint;
+			ResponseEntity<String> responsey = restTemplate.getForEntity(resourceURL, String.class);
+			String jsonString = responsey.getBody();
+			
+			GsonBuilder builder = new GsonBuilder();
+			builder.setPrettyPrinting();
+			Gson gson = builder.create();
+			Response response = gson.fromJson(jsonString, Response.class);
+			
+			//Convert coordinates to string
+			Double latitude = response.getResults().get(0).getGeometry().getLocation().getLat();
+			String latitudeString = String.valueOf(latitude);			
+			Double longitude = response.getResults().get(0).getGeometry().getLocation().getLng();
+			String longitudeString = String.valueOf(longitude);
+			
+			//Insert gps coordinates
+			HashMap<String, String> location = new HashMap<String, String>();
+			location.put("lat", latitudeString);
+			location.put("lng", longitudeString);
 
+			//Create infowindows
+			String infowindow = String.format("<div id=\"content\"><div id=\"siteNotice\"></div>\n" + 
+					"<h1 id=\"firstHeading\" class=\"firstHeading\">%s</h1>\n" + 
+					"<div id=\"bodyContent\">\n" + 
+					"<p>%s</p> \n" + 
+					"<p>%s</p> \n" + 
+					"<p>%s</p> \n" + 
+					"</div>\n" + 
+					"</div>", house.getName(), house.getStreet(), house.getPhone(), house.getInfo());
+			location.put("info", infowindow);
+			coordinates.add(location);
+			System.out.println(coordinates);			
+		}
+		
+		//passing data to template
+		model.addAttribute("sources", coordinates);
 		model.addAttribute("heading", "Housing Vouchers");
 		model.addAttribute("stores", houses);
 		return "results";
 	}
 	
 	@GetMapping(path="/clothing")
-	public String clothing(Model model) {
+	public String clothing(Model model, Text text) {
 		List<Clothing> clothes = (List<Clothing>) clothingRepository.findAll();
+		
+		ArrayList<HashMap> coordinates = new ArrayList<HashMap>();
+		
+		//target endpoint: https://maps.googleapis.com/maps/api/geocode/json?address=700 5th Ave,+Seattle,+WA&key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8
+		
+		for(Clothing cloth : clothes) {
+			//Create endpoint
+			String baseURL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
+			String street = cloth.getStreet();
+			String endURL = ",+Seattle,+WA&key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8";
+			String endpoint = baseURL + street + endURL;
+			System.out.println(endpoint);
+			
+			//api call
+			RestTemplate restTemplate = new RestTemplate();
+			String resourceURL = endpoint;
+			ResponseEntity<String> responsey = restTemplate.getForEntity(resourceURL, String.class);
+			String jsonString = responsey.getBody();
+			
+			GsonBuilder builder = new GsonBuilder();
+			builder.setPrettyPrinting();
+			Gson gson = builder.create();
+			Response response = gson.fromJson(jsonString, Response.class);
+			
+			//Convert coordinates to string
+			Double latitude = response.getResults().get(0).getGeometry().getLocation().getLat();
+			String latitudeString = String.valueOf(latitude);			
+			Double longitude = response.getResults().get(0).getGeometry().getLocation().getLng();
+			String longitudeString = String.valueOf(longitude);
+			
+			//Insert gps coordinates
+			HashMap<String, String> location = new HashMap<String, String>();
+			location.put("lat", latitudeString);
+			location.put("lng", longitudeString);
 
+			//Create infowindows
+			String infowindow = String.format("<div id=\"content\"><div id=\"siteNotice\"></div>\n" + 
+					"<h1 id=\"firstHeading\" class=\"firstHeading\">%s</h1>\n" + 
+					"<div id=\"bodyContent\">\n" + 
+					"<p>%s</p> \n" + 
+					"<p>%s</p> \n" + 
+					"<p>%s</p> \n" + 
+					"</div>\n" + 
+					"</div>", cloth.getName(), cloth.getStreet(), cloth.getPhone(), cloth.getInfo());
+			location.put("info", infowindow);
+			coordinates.add(location);
+			System.out.println(coordinates);			
+		}
+		
+		//passing data to template
+		model.addAttribute("sources", coordinates);
 		model.addAttribute("heading", "Clothing");
 		model.addAttribute("stores", clothes);
 		return "results";
 	}
 	
 	@GetMapping(path="/clinic")
-	public String clinic(Model model) {
+	public String clinic(Model model, Text text) {
 		List<Clinic> clinics = (List<Clinic>) clinicRepository.findAll();
+		
+		ArrayList<HashMap> coordinates = new ArrayList<HashMap>();
+		
+		//target endpoint: https://maps.googleapis.com/maps/api/geocode/json?address=700 5th Ave,+Seattle,+WA&key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8
+		
+		for(Clinic clinic : clinics) {
+			//Create endpoint
+			String baseURL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
+			String street = clinic.getStreet();
+			String endURL = ",+Seattle,+WA&key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8";
+			String endpoint = baseURL + street + endURL;
+			System.out.println(endpoint);
+			
+			//api call
+			RestTemplate restTemplate = new RestTemplate();
+			String resourceURL = endpoint;
+			ResponseEntity<String> responsey = restTemplate.getForEntity(resourceURL, String.class);
+			String jsonString = responsey.getBody();
+			
+			GsonBuilder builder = new GsonBuilder();
+			builder.setPrettyPrinting();
+			Gson gson = builder.create();
+			Response response = gson.fromJson(jsonString, Response.class);
+			
+			//Convert coordinates to string
+			Double latitude = response.getResults().get(0).getGeometry().getLocation().getLat();
+			String latitudeString = String.valueOf(latitude);			
+			Double longitude = response.getResults().get(0).getGeometry().getLocation().getLng();
+			String longitudeString = String.valueOf(longitude);
+			
+			//Insert gps coordinates
+			HashMap<String, String> location = new HashMap<String, String>();
+			location.put("lat", latitudeString);
+			location.put("lng", longitudeString);
 
+			//Create infowindows
+			String infowindow = String.format("<div id=\"content\"><div id=\"siteNotice\"></div>\n" + 
+					"<h1 id=\"firstHeading\" class=\"firstHeading\">%s</h1>\n" + 
+					"<div id=\"bodyContent\">\n" + 
+					"<p>%s</p> \n" + 
+					"<p>%s</p> \n" + 
+					"<p>%s</p> \n" + 
+					"</div>\n" + 
+					"</div>", clinic.getName(), clinic.getStreet(), clinic.getPhone(), clinic.getInfo());
+			location.put("info", infowindow);
+			coordinates.add(location);
+			System.out.println(coordinates);			
+		}
+		
+		//passing data to template
+		model.addAttribute("sources", coordinates);
 		model.addAttribute("heading", "Clinics");
 		model.addAttribute("stores", clinics);
 		return "results";
