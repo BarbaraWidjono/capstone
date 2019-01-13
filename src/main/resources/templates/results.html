@@ -84,33 +84,6 @@
 				  
 			  }  
 			}
-		
-		/* function initMap() {
-			  //anchor location
-			  var anchor = {lat: 47.685880, lng: -122.337290}
-			  var map = new google.maps.Map(
-			      document.getElementById('map'), {zoom: 12, center: anchor, mapTypeId: google.maps.MapTypeId.ROADMAP});
-			  
-			  var locations = [[${sources}]];
-			  console.log(locations);
-			  
-			  var marker, i;
-			  for(i=0; i<locations.length; i++){
-				  var latitude = parseFloat(locations[i]["lat"]);
-				  var longitude = parseFloat(locations[i]["lng"]);
-				  var latlngset = new google.maps.LatLng(latitude, longitude);
-				  var info = locations[i]["info"];
-				  
-				  marker = new google.maps.Marker({position: latlngset, map: map});
-				  var infowindow = new google.maps.InfoWindow({
-			          content: info, position: latlngset
-			        });
-				  
-			        marker.addListener('click', function() {
-			          infowindow.open(map, marker);
-			        }); 
-			  }  
-			} */
 		</script>
 		
 		<script async defer
