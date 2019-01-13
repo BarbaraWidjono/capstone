@@ -25,6 +25,15 @@
 						<p th:text="${store.info}"/>
 						<a th:target="_blank" th:href="${store.website}">Website</a>
 						<a th:target="_blank" th:href="@{https://www.google.com/maps/dir/?api=1&destination={location}+Seattle+WA(location=${store.street})}">Directions</a>
+						
+						<form action="#" th:action="@{/text}" th:object="${text}" method="post">
+					    	<input type="hidden" th:value="${store.name}" name="name" id="name" />				    	
+					       	<input type="hidden" th:value="${store.street}" name="address" id="address" />
+					       	<input type="hidden" th:value="${store.phone}" name="resnumber" id="resnumber" />
+					       	<input type="hidden" th:value="${store.info}" name="info" id="info" />
+					       	<p>Your phone number(example: 2063215678): <input type="tel" th:field="*{number}" pattern="[0-9]{10}" /></p>
+					        <p><input type="submit" value="Send" /></p>
+					    </form>
 
 				</div>
 			</div>

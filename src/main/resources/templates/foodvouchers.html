@@ -27,7 +27,7 @@
 						<a th:target="_blank" th:href="@{https://www.google.com/maps/dir/?api=1&destination={location}+Seattle+WA(location=${store.street})}">Directions</a>
 						<p>Have information about this site texted to you</p>
 						
-						<form action="#" th:action="@{/textfoodpantries}" th:object="${text}" method="post">
+						<form action="#" th:action="@{/textfoodvouchers}" th:object="${text}" method="post">
 					    	<input type="hidden" th:value="${store.name}" name="name" id="name" />				    	
 					       	<input type="hidden" th:value="${store.street}" name="address" id="address" />
 					       	<input type="hidden" th:value="${store.phone}" name="resnumber" id="resnumber" />
@@ -49,9 +49,9 @@
 			var map;
 			var markers = [];
 			  //anchor location
-			  var anchor = {lat: 47.685880, lng: -122.337290};
+			  var anchor = {lat: 47.6050242, lng: -122.334370};
 			  map = new google.maps.Map(
-			      document.getElementById('map'), {zoom: 12, center: new google.maps.LatLng(47.685880, -122.337290), mapTypeId: google.maps.MapTypeId.ROADMAP});
+			      document.getElementById('map'), {zoom: 12, center: new google.maps.LatLng(47.6050242, -122.334370), mapTypeId: google.maps.MapTypeId.ROADMAP});
 			  
 			  var locations = [[${sources}]];
 			  console.log(locations);

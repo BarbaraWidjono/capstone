@@ -51,10 +51,8 @@ import com.google.gson.GsonBuilder;
 
 @Controller
 public class HomepageController{
-	
 	public static final String ACCOUNT_SID = "";
 	public static final String AUTH_TOKEN = "";
-
 	
 	@Autowired
 	private FoodRepository foodRepository;
@@ -82,42 +80,6 @@ public class HomepageController{
 		return "homepage";
 	}
 	
-	@GetMapping(path = "/loginform")
-	public String loginform(Model model, Login login) {
-		return "loginform";
-	}
-	
-	@PostMapping(path = "/login")
-	@ResponseStatus(value = HttpStatus.OK)
-	public void login(@ModelAttribute Login login) {
-		System.out.println("Entered name:" + login.getLoginname());
-		System.out.println("Entered password:" + login.getLoginpassword());
-		String name = login.getLoginname();
-		String pass = login.getLoginpassword();
-		
-		List<User> pair = userRepository.findByUsernameAndPassword(name, pass);
-		System.out.println(pair);
-		
-		ArrayList compare = new ArrayList();
-		System.out.println(compare);
-		
-		if(pair.size() == 0) {
-			System.out.println("This pair does NOT exist");
-		}else {
-			System.out.println("This pair exists");
-		}
-	}
-	
-	@GetMapping(path="/foodPantries")
-	public String foodPantries(Model model, Text text) {
-		//reading data from MySQL via Respository
-		List<Food> foods = (List<Food>) foodRepository.findAll();
-		
-		model.addAttribute("heading", "Food Pantries");
-		model.addAttribute("stores", foods);
-		return "foodpantries";
-	}
-	
 	@PostMapping(path = "/text")
 //	@ResponseStatus(value = HttpStatus.OK)
 	public RedirectView message(@ModelAttribute Text text) {
@@ -130,100 +92,15 @@ public class HomepageController{
 	    Message message = Message.creator(new PhoneNumber(receiver),
 	        new PhoneNumber("+12064389389"), 
 	        textBody).create();
-//	    System.out.println(message.accoutSid);
 	   
 	    //Insert Error Handling
+	    //System.out.println(message.getSid());
+	    //System.out.println(message.getErrorCode());
 	    if(message.getErrorCode() == null) {
-	    	return new RedirectView("/foodPantries");
+	    	return new RedirectView("/");
 	    }else {
-//	    	System.out.println(message.errorCode);
-	    	return new RedirectView("/foodPantries");
-	    }
-//	    System.out.println(message.getSid());
-//	    System.out.println(message.getErrorCode());
-	    
-		
-	}
-	
-	
-	@GetMapping(path="/foodvouchers")
-	public String foodVouchers(Model model) {
-		//Read from db
-		List<Foodvoucher> foods = (List<Foodvoucher>) foodvoucherRepository.findAll();
-		
-		ArrayList<HashMap> coordinates = new ArrayList<HashMap>();
-		
-		//target endpoint: https://maps.googleapis.com/maps/api/geocode/json?address=700 5th Ave,+Seattle,+WA&key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8
-		
-		for(Foodvoucher food : foods) {
-			//Create endpoint
-			String baseURL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
-			String street = food.getStreet();
-			String endURL = ",+Seattle,+WA&key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8";
-			String endpoint = baseURL + street + endURL;
-			System.out.println(endpoint);
-			
-			//api call
-			RestTemplate restTemplate = new RestTemplate();
-			String resourceURL = endpoint;
-			ResponseEntity<String> responsey = restTemplate.getForEntity(resourceURL, String.class);
-			String jsonString = responsey.getBody();
-			
-			GsonBuilder builder = new GsonBuilder();
-			builder.setPrettyPrinting();
-			Gson gson = builder.create();
-			Response response = gson.fromJson(jsonString, Response.class);
-			
-			//Convert coordinates to string
-			Double latitude = response.getResults().get(0).getGeometry().getLocation().getLat();
-			String latitudeString = String.valueOf(latitude);			
-			Double longitude = response.getResults().get(0).getGeometry().getLocation().getLng();
-			String longitudeString = String.valueOf(longitude);
-			
-			//Insert gps coordinates
-			HashMap<String, String> location = new HashMap<String, String>();
-			location.put("lat", latitudeString);
-			location.put("lng", longitudeString);
-
-			//Create infowindows
-			String infowindow = String.format("<div id=\"content\"><div id=\"siteNotice\"></div>\n" + 
-					"<h1 id=\"firstHeading\" class=\"firstHeading\">%s</h1>\n" + 
-					"<div id=\"bodyContent\">\n" + 
-					"<p>%s</p> \n" + 
-					"<p>%s</p> \n" + 
-					"<p>%s</p> \n" + 
-					"</div>\n" + 
-					"</div>", food.getName(), food.getStreet(), food.getPhone(), food.getInfo());
-			location.put("info", infowindow);
-			coordinates.add(location);
-			System.out.println(coordinates);			
-		}
-		
-		
-		//api call for address to gps coordinates
-//		RestTemplate restTemplate = new RestTemplate();
-//		String resourceURL = "https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8";
-//		ResponseEntity<String> responsey = restTemplate.getForEntity(resourceURL, String.class);
-//		System.out.println(responsey.getBody());			
-//		String jsonString = responsey.getBody();		
-//		GsonBuilder builder = new GsonBuilder();
-//		builder.setPrettyPrinting();
-//		Gson gson = builder.create();		
-//		Response response = gson.fromJson(jsonString, Response.class);
-//		System.out.println(response.getResults().get(0).getGeometry().getLocation().getLat());
-//		Double latitude = response.getResults().get(0).getGeometry().getLocation().getLat();
-//		Double longitude = response.getResults().get(0).getGeometry().getLocation().getLng();
-//		System.out.println("The latitude: " + latitude);
-//		System.out.println("The longitude:" + longitude);		
-//		jsonString = gson.toJson(response);
-//		System.out.println(jsonString);
-
-		
-		//passing data to template
-		model.addAttribute("sources", coordinates);
-		model.addAttribute("heading", "Food Vouchers");
-		model.addAttribute("stores", foods);
-		return "results";
+	    	return new RedirectView("/");
+	    }	
 	}
 	
 	@GetMapping(path="/transitional")
