@@ -3,10 +3,15 @@
 	<head lang="en">
 		<title>Dashboard</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta http-equiv="Cache-Control" content="no-cache"/>
+		<meta http-equiv="Pragma" content="no-cache"/>
+		<meta http-equiv="Expires" content="0" />
 	</head>
 	
 	<body>
 		<h1>Dashboard</h1>
+		<p th:text="${session.mySessionAttribute}" th:unless="${session == null}">[...]</p>
+		<a href="/logout">Logout</a>
 		<!-- <ul th:each="name: ${names}">
 			<li th:text="${name}"/>
 		</ul> -->

@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.persistence.Cacheable;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -55,6 +58,8 @@ public class LoginController{
 	@Autowired
 	private UserRepository userRepository;
 	
+	
+	
 	@GetMapping(path = "/loginform")
 	public String loginform(Model model, Login login) {
 		return "loginform";
@@ -62,7 +67,7 @@ public class LoginController{
 	
 	@PostMapping(path = "/login")
 //	@ResponseStatus(value = HttpStatus.OK)
-	public RedirectView login(@ModelAttribute Login login) {
+	public RedirectView login(@ModelAttribute Login login, HttpSession session) {
 //		System.out.println("Entered name:" + login.getLoginname());
 //		System.out.println("Entered password:" + login.getLoginpassword());
 		String name = login.getLoginname();
@@ -78,12 +83,32 @@ public class LoginController{
 			System.out.println("This pair does NOT exist");
 			return new RedirectView("/");
 		}else {
+			session.setAttribute("mySessionAttribute", name);
+			System.out.println("hellooooo" + session.getAttribute("mySessionAttribute"));
 			return new RedirectView("/dashboard");
 		}
 	}
 	
+	
 	@GetMapping(path = "/dashboard")
-	public String dashboard() {
-		return "dashboard";
+	public String dashboard(HttpSession session) {
+		Object currentUser = session.getAttribute("mySessionAttribute");
+		//prevent access through URL bar "/dashboard"
+		if(currentUser == null) {
+			return "homepage";
+		}else {
+			return "dashboard";
+		}		
 	}
+	
+	@GetMapping(path = "/logout")
+	public RedirectView logout(HttpSession session) {
+		//clear session
+		session.removeAttribute("mySessionAttribute");
+		session.invalidate();
+		
+		return new RedirectView("/");
+	}
+	
+	
 }
