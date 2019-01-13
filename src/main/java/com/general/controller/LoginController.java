@@ -61,10 +61,10 @@ public class LoginController{
 	}
 	
 	@PostMapping(path = "/login")
-	@ResponseStatus(value = HttpStatus.OK)
-	public void login(@ModelAttribute Login login) {
-		System.out.println("Entered name:" + login.getLoginname());
-		System.out.println("Entered password:" + login.getLoginpassword());
+//	@ResponseStatus(value = HttpStatus.OK)
+	public RedirectView login(@ModelAttribute Login login) {
+//		System.out.println("Entered name:" + login.getLoginname());
+//		System.out.println("Entered password:" + login.getLoginpassword());
 		String name = login.getLoginname();
 		String pass = login.getLoginpassword();
 		
@@ -76,8 +76,14 @@ public class LoginController{
 		
 		if(pair.size() == 0) {
 			System.out.println("This pair does NOT exist");
+			return new RedirectView("/");
 		}else {
-			System.out.println("This pair exists");
+			return new RedirectView("/dashboard");
 		}
+	}
+	
+	@GetMapping(path = "/dashboard")
+	public String dashboard() {
+		return "dashboard";
 	}
 }
