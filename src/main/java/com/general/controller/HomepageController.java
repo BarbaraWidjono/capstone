@@ -110,8 +110,6 @@ public class HomepageController{
 		
 		ArrayList<HashMap> coordinates = new ArrayList<HashMap>();
 		
-		//target endpoint: https://maps.googleapis.com/maps/api/geocode/json?address=700 5th Ave,+Seattle,+WA&key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8
-		
 		for(Transitional house : houses) {
 			//Create endpoint
 			String baseURL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
@@ -170,8 +168,6 @@ public class HomepageController{
 		
 		ArrayList<HashMap> coordinates = new ArrayList<HashMap>();
 		
-		//target endpoint: https://maps.googleapis.com/maps/api/geocode/json?address=700 5th Ave,+Seattle,+WA&key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8
-		
 		for(Housingvoucher house : houses) {
 			//Create endpoint
 			String baseURL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
@@ -229,8 +225,6 @@ public class HomepageController{
 		
 		ArrayList<HashMap> coordinates = new ArrayList<HashMap>();
 		
-		//target endpoint: https://maps.googleapis.com/maps/api/geocode/json?address=700 5th Ave,+Seattle,+WA&key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8
-		
 		for(Clothing cloth : clothes) {
 			//Create endpoint
 			String baseURL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
@@ -287,8 +281,6 @@ public class HomepageController{
 		List<Clinic> clinics = (List<Clinic>) clinicRepository.findAll();
 		
 		ArrayList<HashMap> coordinates = new ArrayList<HashMap>();
-		
-		//target endpoint: https://maps.googleapis.com/maps/api/geocode/json?address=700 5th Ave,+Seattle,+WA&key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8
 		
 		for(Clinic clinic : clinics) {
 			//Create endpoint

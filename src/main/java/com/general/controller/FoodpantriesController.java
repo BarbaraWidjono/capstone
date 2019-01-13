@@ -64,8 +64,6 @@ public class FoodpantriesController{
 		
 		ArrayList<HashMap> coordinates = new ArrayList<HashMap>();
 		
-		//target endpoint: https://maps.googleapis.com/maps/api/geocode/json?address=700 5th Ave,+Seattle,+WA&key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8
-		
 		for(Food food : foods) {
 			//Create endpoint
 			String baseURL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
