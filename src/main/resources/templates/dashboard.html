@@ -34,7 +34,6 @@
 						<td th:text="${pantry.phone}">
 						<td th:text="${pantry.info}">
 						<td th:text="${pantry.website}">
-						<td>
 						<td><a th:href="@{/deletefoodpantry/{id}(id=${pantry.id})}">Delete</a></td>
 					</tr>
 				</table>
@@ -43,6 +42,55 @@
 			<h5>Add a record</h5>
 			<div class="forms">
 				<form action="#" th:action="@{/addfoodpantry}" th:object="${food}" method="post" class="form">
+					<div>
+						<label>Pantry Name: </label><input type="text" th:field="*{name}" />
+						<label>Street Address: </label><input type="text" th:field="*{street}" />
+						<label>City: </label><input type="text" th:value="Seattle" name="city" id="city" />
+						<label>State: </label><input type="text" th:value="WA" name="state" id="state" />
+						<label>Zipcode: </label><input type="text" th:field="*{zipcode}" />
+					</div>
+					<div>
+						<label>Phone: </label><input type="text" th:field="*{phone}" />
+						<label>Site Info: </label><input type="text" th:field="*{info}" />
+						<label>Website: </label><input type="text" th:field="*{website}" />
+						<p><input type="submit" value="Submit" /></p>
+					</div>
+				</form>
+			</div>
+		</div>
+		
+		<h3>Food Vouchers</h3>
+		<div class = "category">
+			<div class = "list">
+				<table>
+					<tr>
+						<th>Organization</th>
+						<th>Address</th>
+						<th>City</th>
+						<th>State</th>
+						<th>Zipcode</th>
+						<th>Phone</th>
+						<th>Site Info</th>
+						<th>Website</th>
+						<th>Delete</th>
+					</tr>
+					<tr th:each="pantry: ${foodvouchers}">
+						<td th:text="${pantry.name}">
+						<td th:text="${pantry.street}">
+						<td th:text="${pantry.city}">
+						<td th:text="${pantry.state}">
+						<td th:text="${pantry.zipcode}">
+						<td th:text="${pantry.phone}">
+						<td th:text="${pantry.info}">
+						<td th:text="${pantry.website}">
+						<td><!-- <a th:href="@{/deletefoodpantry/{id}(id=${pantry.id})}">Delete</a> --></td>
+					</tr>
+				</table>
+			
+			</div>
+			<h5>Add a record</h5>
+			<div class="forms">
+				<form action="#" th:action="@{/addfoodvoucher}" th:object="${foodvoucher}" method="post" class="form">
 					<div>
 						<label>Pantry Name: </label><input type="text" th:field="*{name}" />
 						<label>Street Address: </label><input type="text" th:field="*{street}" />

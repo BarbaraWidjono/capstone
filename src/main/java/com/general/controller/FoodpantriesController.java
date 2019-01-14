@@ -148,6 +148,23 @@ public class FoodpantriesController{
 	    }	
 	}
 	
+	@PostMapping(path = "/addfoodpantry")
+//	@ResponseStatus(value = HttpStatus.OK)
+	public RedirectView addFood(@ModelAttribute Food food, HttpSession session) {
+		Food newfood = new Food();
+		newfood.setName(food.getName());
+		newfood.setStreet(food.getStreet());
+		newfood.setCity(food.getCity());
+		newfood.setState(food.getState());
+		newfood.setZipcode(food.getZipcode());
+		newfood.setPhone(food.getPhone());
+		newfood.setInfo(food.getInfo());
+		newfood.setWebsite(food.getWebsite());
+		foodRepository.save(newfood);
+		session.setAttribute("mySessionAttribute", "tempuser");
+		return new RedirectView("/dashboard");
+	}
+	
 	@GetMapping("/deletefoodpantry/{id}")
 	public String deleteFoodpantry(@PathVariable("id") Integer id, Model model, Food food) {
 		foodRepository.deleteById(id);

@@ -109,16 +109,19 @@ public class LoginController{
 	
 	
 	@GetMapping(path = "/dashboard")
-	public String dashboard(HttpSession session, Model model, Record record, Food food) {
+	public String dashboard(HttpSession session, Model model, Record record, Food food, Foodvoucher foodvoucher) {
 		Object currentUser = session.getAttribute("mySessionAttribute");
 		//prevent access through URL bar "/dashboard"
 		if(currentUser == null) {
 			return "homepage";
 		}else {
-			//foodpantries
+			//reading data
 			List<Food> foods = (List<Food>) foodRepository.findAll();
-			model.addAttribute("foodpantries", foods);
+			List<Foodvoucher> foodvouchers = (List<Foodvoucher>) foodvoucherRepository.findAll();
 			
+			//passing data to template
+			model.addAttribute("foodpantries", foods);
+			model.addAttribute("foodvouchers", foodvouchers);
 			return "dashboard";
 		}		
 	}
