@@ -8,12 +8,13 @@ body{
 .category{
 	width: 100%;
 	border: 1px solid black;
-	padding: 2px;
+	padding: 10px;
 	background: #a5a5bd;
 }
 
 table{
 	background: white;
+	width: 100%;
 }
 
 th, td{
@@ -26,4 +27,18 @@ th, td{
 h5{
 	margin-top: 5px;
 	margin-bottom: 5px;
+}
+
+p{
+	margin-top: 10px;
+	margin-bottom: 0px;
+}
+
+.form{
+	display: flex;
+	flex-direction: column;
+}
+
+input{
+	margin-top: 5px;
 }
