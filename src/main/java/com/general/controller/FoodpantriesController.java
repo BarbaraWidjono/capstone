@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,7 @@ import com.general.entity.Foodvoucher;
 import com.general.entity.Geometry;
 import com.general.entity.Housingvoucher;
 import com.general.entity.Login;
+import com.general.entity.Record;
 import com.general.entity.Response;
 import com.general.entity.Transitional;
 import com.general.entity.Text;
@@ -141,7 +143,7 @@ public class FoodpantriesController{
 	
 	@PostMapping("/deletefoodpantry")
 	@ResponseStatus(value = HttpStatus.OK)
-	public void deleteFoodpantry() {
-		System.out.println("Inside the delete");
+	public void deleteFoodpantry(@ModelAttribute Record record) {
+		foodRepository.deleteById(record.getId());
 	}
 }
