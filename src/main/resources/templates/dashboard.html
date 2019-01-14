@@ -17,19 +17,27 @@
 					<tr>
 						<th>Organization</th>
 						<th>Address</th>
+						<th>City</th>
+						<th>State</th>
+						<th>Zipcode</th>
 						<th>Phone</th>
+						<th>Site Info</th>
+						<th>Website</th>
 					</tr>
 					<tr th:each="pantry: ${foodpantries}">
 						<td th:text="${pantry.name}">
 						<td th:text="${pantry.street}">
+						<td th:text="${pantry.city}">
+						<td th:text="${pantry.state}">
+						<td th:text="${pantry.zipcode}">
 						<td th:text="${pantry.phone}">
+						<td th:text="${pantry.info}">
+						<td th:text="${pantry.website}">
 					</tr>
 				</table>
-				<!-- <div th:each="pantry: ${foodpantries}">
-					<p th:text="${pantry.name}" />			
-				</div> -->
-			</div>
 			
+			</div>
+			<h5>Add a record</h5>
 			<div class="forms">
 				<form action="#" th:action="@{/addfoodpantry}" th:object="${food}" method="post">
 					<label>Pantry Name: </label><input type="text" th:field="*{name}" />
