@@ -334,19 +334,22 @@ public class HomepageController{
 	}
 	
 	//http://localhost:8080/addfoodpantry?name=***&street=***&city=***&state=***&zipcode=***&phone=***&info=***&website=***
-	@GetMapping(path="/addfoodpantry")
-	@ResponseBody
-	public void addFood(@RequestParam String name, @RequestParam String street, @RequestParam String city, @RequestParam String state, @RequestParam String zipcode, @RequestParam String phone, @RequestParam String info, @RequestParam String website) {
-		Food food = new Food();
-		food.setName(name);
-		food.setStreet(street);
-		food.setCity(city);
-		food.setState(state);
-		food.setZipcode(zipcode);
-		food.setPhone(phone);
-		food.setInfo(info);
-		food.setWebsite(website);
-		foodRepository.save(food);
+//	@GetMapping(path="/addfoodpantry")
+//	@ResponseBody
+	@PostMapping(path = "/addfoodpantry")
+//	@ResponseStatus(value = HttpStatus.OK)
+	public RedirectView addFood(@ModelAttribute Food food) {
+		Food newfood = new Food();
+		newfood.setName(food.getName());
+		newfood.setStreet(food.getStreet());
+		newfood.setCity(food.getCity());
+		newfood.setState(food.getState());
+		newfood.setZipcode(food.getZipcode());
+		newfood.setPhone(food.getPhone());
+		newfood.setInfo(food.getInfo());
+		newfood.setWebsite(food.getWebsite());
+		foodRepository.save(newfood);
+		return new RedirectView("/dashboard");
 	}
 	
 	//http://localhost:8080/addfoodvoucher?name=***&street=***&city=***&state=***&zipcode=***&phone=***&info=***&website=***
