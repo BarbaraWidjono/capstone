@@ -37,6 +37,7 @@ import com.general.entity.Foodvoucher;
 import com.general.entity.Geometry;
 import com.general.entity.Housingvoucher;
 import com.general.entity.Login;
+import com.general.entity.Record;
 import com.general.entity.Response;
 import com.general.entity.Transitional;
 import com.general.entity.Text;
@@ -108,7 +109,7 @@ public class LoginController{
 	
 	
 	@GetMapping(path = "/dashboard")
-	public String dashboard(HttpSession session, Model model, Food food) {
+	public String dashboard(HttpSession session, Model model, Record record, Food food) {
 		Object currentUser = session.getAttribute("mySessionAttribute");
 		//prevent access through URL bar "/dashboard"
 		if(currentUser == null) {

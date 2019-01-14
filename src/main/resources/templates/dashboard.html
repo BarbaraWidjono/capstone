@@ -34,7 +34,11 @@
 						<td th:text="${pantry.phone}">
 						<td th:text="${pantry.info}">
 						<td th:text="${pantry.website}">
-						<td>Test
+						<td>
+							<form action="#" th:action="@{/deletefoodpantry}" th:object="${record}" method="post">
+								<input type="hidden" th:value="${pantry.id}" name="id" id="id" />
+								<input type="submit" value="Delete" />
+							</form>
 						</td>
 						<!-- <td><a th:href="@{/deletefoodpantry/(id=${pantry.id})}">Delete</a></td> -->
 					</tr>

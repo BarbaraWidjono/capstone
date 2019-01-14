@@ -139,7 +139,8 @@ public class FoodpantriesController{
 	    }	
 	}
 	
-	@GetMapping("/deletefoodpantry/{id}")
+	@PostMapping("/deletefoodpantry")
+	@ResponseStatus(value = HttpStatus.OK)
 	public void deleteFoodpantry() {
 		System.out.println("Inside the delete");
 	}
