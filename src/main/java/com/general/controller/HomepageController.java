@@ -353,24 +353,23 @@ public class HomepageController{
 //		return new RedirectView("/dashboard");
 //	}
 	
-	//http://localhost:8080/addfoodvoucher?name=***&street=***&city=***&state=***&zipcode=***&phone=***&info=***&website=***
-	@PostMapping(path="/addfoodvoucher")
-	@ResponseBody
-	public RedirectView addFoodvoucher(@ModelAttribute Foodvoucher foodvoucher, HttpSession session) {
-		Foodvoucher newfood = new Foodvoucher();
-		newfood.setName(foodvoucher.getName());
-		newfood.setStreet(foodvoucher.getStreet());
-		newfood.setCity(foodvoucher.getCity());
-		newfood.setState(foodvoucher.getState());
-		newfood.setZipcode(foodvoucher.getZipcode());
-		newfood.setPhone(foodvoucher.getPhone());
-		newfood.setInfo(foodvoucher.getInfo());
-		newfood.setWebsite(foodvoucher.getWebsite());
-		foodvoucherRepository.save(newfood);
-		
-		session.setAttribute("mySessionAttribute", "tempuser");
-		return new RedirectView("/dashboard");
-	}
+//	@PostMapping(path="/addfoodvoucher")
+//	@ResponseBody
+//	public RedirectView addFoodvoucher(@ModelAttribute Foodvoucher foodvoucher, HttpSession session) {
+//		Foodvoucher newfood = new Foodvoucher();
+//		newfood.setName(foodvoucher.getName());
+//		newfood.setStreet(foodvoucher.getStreet());
+//		newfood.setCity(foodvoucher.getCity());
+//		newfood.setState(foodvoucher.getState());
+//		newfood.setZipcode(foodvoucher.getZipcode());
+//		newfood.setPhone(foodvoucher.getPhone());
+//		newfood.setInfo(foodvoucher.getInfo());
+//		newfood.setWebsite(foodvoucher.getWebsite());
+//		foodvoucherRepository.save(newfood);
+//		
+//		session.setAttribute("mySessionAttribute", "tempuser");
+//		return new RedirectView("/dashboard");
+//	}
 		
 		//http://localhost:8080/addtransitional?name=***&street=***&city=***&state=***&zipcode=***&phone=***&info=***&website=***
 		@GetMapping(path="/addtransitional")

@@ -67,6 +67,24 @@ public class FoodpantriesController{
 	@Autowired
 	private FoodRepository foodRepository;
 	
+	@Autowired
+	private FoodvoucherRepository foodvoucherRepository;
+	
+	@Autowired
+	private TransitionalRepository transitionalRepository;
+	
+	@Autowired
+	private HousingvoucherRepository housingvoucherRepository;
+	
+	@Autowired
+	private ClothingRepository clothingRepository;
+	
+	@Autowired
+	private ClinicRepository clinicRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
+	
 	@GetMapping(path="/foodPantries")
 	public String foodPantries(Model model, Text text) {
 		//Read from db
@@ -166,11 +184,14 @@ public class FoodpantriesController{
 	}
 	
 	@GetMapping("/deletefoodpantry/{id}")
-	public String deleteFoodpantry(@PathVariable("id") Integer id, Model model, Food food) {
+	public String deleteFoodpantry(@PathVariable("id") Integer id, Model model, Food food, Foodvoucher foodvoucher) {
 		foodRepository.deleteById(id);
 		
 		List<Food> foods = (List<Food>) foodRepository.findAll();
 		model.addAttribute("foodpantries", foods);
+		
+		List<Foodvoucher> foodvouchers = (List<Foodvoucher>) foodvoucherRepository.findAll();
+		model.addAttribute("foodvouchers", foodvouchers);
 		
 		return "dashboard";
 	}
