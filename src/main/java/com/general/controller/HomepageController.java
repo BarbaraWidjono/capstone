@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -338,7 +340,7 @@ public class HomepageController{
 //	@ResponseBody
 	@PostMapping(path = "/addfoodpantry")
 //	@ResponseStatus(value = HttpStatus.OK)
-	public RedirectView addFood(@ModelAttribute Food food) {
+	public RedirectView addFood(@ModelAttribute Food food, HttpSession session) {
 		Food newfood = new Food();
 		newfood.setName(food.getName());
 		newfood.setStreet(food.getStreet());
@@ -349,6 +351,7 @@ public class HomepageController{
 		newfood.setInfo(food.getInfo());
 		newfood.setWebsite(food.getWebsite());
 		foodRepository.save(newfood);
+		session.setAttribute("mySessionAttribute", "tempuser");
 		return new RedirectView("/dashboard");
 	}
 	
