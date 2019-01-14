@@ -13,23 +13,35 @@
 		<h3>Food Pantries</h3>
 		<div class = "category">
 			<div class = "list">
-				<div th:each="pantry: ${foodpantries}">
+				<table>
+					<tr>
+						<th>Organization</th>
+						<th>Address</th>
+						<th>Phone</th>
+					</tr>
+					<tr th:each="pantry: ${foodpantries}">
+						<td th:text="${pantry.name}">
+						<td th:text="${pantry.street}">
+						<td th:text="${pantry.phone}">
+					</tr>
+				</table>
+				<!-- <div th:each="pantry: ${foodpantries}">
 					<p th:text="${pantry.name}" />			
-				</div>
+				</div> -->
 			</div>
 			
 			<div class="forms">
 				<form action="#" th:action="@{/addfoodpantry}" th:object="${food}" method="post">
-				<p>Pantry Name: <input type="text" th:field="*{name}" /></p>
-				<p>Street Address: <input type="text" th:field="*{street}" /></p>
-				<p>City: <input type="text" th:value="Seattle" name="city" id="city" /></p>
-				<p>State: <input type="text" th:value="WA" name="state" id="state" /></p>
-				<p>Zipcode: <input type="text" th:field="*{zipcode}" /></p>
-				<p>Phone Number: <input type="text" th:field="*{phone}" /></p>
-				<p>Site Info: <input type="text" th:field="*{info}" /></p>
-				<p>Website: <input type="text" th:field="*{website}" /></p>
-				<p><input type="submit" value="Submit" /></p>
-			</form>
+					<label>Pantry Name: </label><input type="text" th:field="*{name}" />
+					<label>Street Address: </label><input type="text" th:field="*{street}" />
+					<label>City: </label><input type="text" th:value="Seattle" name="city" id="city" />
+					<label>State: </label><input type="text" th:value="WA" name="state" id="state" />
+					<label>Zipcode: </label><input type="text" th:field="*{zipcode}" />
+					<label>Phone: </label><input type="text" th:field="*{phone}" />
+					<label>Site Info: </label><input type="text" th:field="*{info}" />
+					<label>Website: </label><input type="text" th:field="*{website}" />
+					<p><input type="submit" value="Submit" /></p>
+				</form>
 			</div>
 		</div>
 	</body>
