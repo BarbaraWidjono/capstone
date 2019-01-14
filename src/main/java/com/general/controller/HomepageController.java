@@ -78,7 +78,7 @@ public class HomepageController{
 	private UserRepository userRepository;
 	
 	@GetMapping(path = "/")
-	public String homepage() {
+	public String homepage(Model model, Login login) {
 		return "homepage";
 	}
 	
@@ -335,9 +335,6 @@ public class HomepageController{
 		return "results";
 	}
 	
-	//http://localhost:8080/addfoodpantry?name=***&street=***&city=***&state=***&zipcode=***&phone=***&info=***&website=***
-//	@GetMapping(path="/addfoodpantry")
-//	@ResponseBody
 	@PostMapping(path = "/addfoodpantry")
 //	@ResponseStatus(value = HttpStatus.OK)
 	public RedirectView addFood(@ModelAttribute Food food, HttpSession session) {

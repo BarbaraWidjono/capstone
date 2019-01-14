@@ -19,6 +19,10 @@
 		<h3>Healthcare</h3>
 		<a href="/clinic">Clinics</a>
 		<h3>Admin</h3>
-		<a href="/loginform">Login</a>
+		<form action="#" th:action="@{/login}" th:object="${login}" method="post">
+	       	<p><input type="text" th:field="*{loginname}" th:placeholder="username" /></p>
+	       	<p><input type="text" th:field="*{loginpassword}" th:placeholder="password" /></p>
+	        <p><input type="submit" value="Login" /></p>
+	    </form>
 	</body>
 </html>
