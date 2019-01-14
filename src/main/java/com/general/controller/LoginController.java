@@ -58,6 +58,23 @@ public class LoginController{
 	@Autowired
 	private UserRepository userRepository;
 	
+	@Autowired
+	private FoodRepository foodRepository;
+	
+	@Autowired
+	private FoodvoucherRepository foodvoucherRepository;
+	
+	@Autowired
+	private TransitionalRepository transitionalRepository;
+	
+	@Autowired
+	private HousingvoucherRepository housingvoucherRepository;
+	
+	@Autowired
+	private ClothingRepository clothingRepository;
+	
+	@Autowired
+	private ClinicRepository clinicRepository;
 	
 	
 	@GetMapping(path = "/loginform")
@@ -91,12 +108,16 @@ public class LoginController{
 	
 	
 	@GetMapping(path = "/dashboard")
-	public String dashboard(HttpSession session) {
+	public String dashboard(HttpSession session, Model model, Food food) {
 		Object currentUser = session.getAttribute("mySessionAttribute");
 		//prevent access through URL bar "/dashboard"
 		if(currentUser == null) {
 			return "homepage";
 		}else {
+			//foodpantries
+			List<Food> foods = (List<Food>) foodRepository.findAll();
+			model.addAttribute("foodpantries", foods);
+			
 			return "dashboard";
 		}		
 	}

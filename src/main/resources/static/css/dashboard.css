@@ -1,0 +1,15 @@
+body{
+	padding: 50px;
+}
+
+.category{
+	display: flex;
+	flex-direction: row;
+	border: 1px solid black;
+	
+}
+
+.list, .forms{
+	width: 50%;
+	padding: 20px;
+}

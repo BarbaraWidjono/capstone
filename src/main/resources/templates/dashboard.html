@@ -2,18 +2,36 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head lang="en">
 		<title>Dashboard</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-		<meta http-equiv="Cache-Control" content="no-cache"/>
-		<meta http-equiv="Pragma" content="no-cache"/>
-		<meta http-equiv="Expires" content="0" />
+		<link href="../static/css/dashboard.css" th:href="@{/css/dashboard.css}" rel="stylesheet" />
+		
 	</head>
 	
 	<body>
 		<h1>Dashboard</h1>
 		<p th:text="${session.mySessionAttribute}" th:unless="${session == null}">[...]</p>
 		<a href="/logout">Logout</a>
-		<!-- <ul th:each="name: ${names}">
-			<li th:text="${name}"/>
-		</ul> -->
+		
+		<h3>Food Pantries</h3>
+		<div class = "category">
+			<div class = "list">
+				<div th:each="pantry: ${foodpantries}">
+					<p th:text="${pantry.name}" />			
+				</div>
+			</div>
+			
+			<div class="forms">
+				<form action="#" th:action="@{/addfoodpantry}" th:object="${food}" method="post">
+				<p>Pantry Name: <input type="text" th:field="*{name}" /></p>
+				<p>Street Address: <input type="text" th:field="*{street}" /></p>
+				<p>City: <input type="text" th:value="Seattle" name="city" id="city" /></p>
+				<p>State: <input type="text" th:value="WA" name="state" id="state" /></p>
+				<p>Zipcode: <input type="text" th:field="*{zipcode}" /></p>
+				<p>Phone Number: <input type="text" th:field="*{phone}" /></p>
+				<p>Site Info: <input type="text" th:field="*{info}" /></p>
+				<p>Website: <input type="text" th:field="*{website}" /></p>
+				<p><input type="submit" value="Submit" /></p>
+			</form>
+			</div>
+		</div>
 	</body>
 </html>

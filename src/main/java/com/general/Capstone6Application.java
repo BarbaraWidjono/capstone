@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ComponentScan(basePackages= {"com.general"})
 @EnableAutoConfiguration
-@EnableCaching
 public class Capstone6Application {
 
 	public static void main(String[] args) {
