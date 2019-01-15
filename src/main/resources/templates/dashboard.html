@@ -191,5 +191,51 @@
 			</div>
 		</div>
 		
+		<h3>Clothing</h3>
+		<div class = "category">
+			<div class = "list">
+				<table>
+					<tr>
+						<th>Organization</th>
+						<th>Address</th>
+						<th>City</th>
+						<th>State</th>
+						<th>Zipcode</th>
+						<th>Phone</th>
+						<th>Site Info</th>
+						<th>Website</th>
+						<th>Delete</th>
+					</tr>
+					<tr th:each="cloth: ${clothes}">
+						<td th:text="${cloth.name}">
+						<td th:text="${cloth.street}">
+						<td th:text="${cloth.city}">
+						<td th:text="${cloth.state}">
+						<td th:text="${cloth.zipcode}">
+						<td th:text="${cloth.phone}">
+						<td th:text="${cloth.info}">
+						<td th:text="${cloth.website}">
+						<td><!-- <a th:href="@{/deletehousingvoucher/{id}(id=${cloth.id})}">Delete</a> --></td>
+					</tr>
+				</table>
+			
+			</div>
+			<h5>Add a record</h5>
+			<div class="forms">
+				<form action="#" th:action="@{/addclothing}" th:object="${clothing}" method="post">
+						<label>Name </label><br><input type="text" th:field="*{name}" /><br>
+						<label>Street Address </label><br><input type="text" th:field="*{street}" /><br>
+						<label>City </label><br><input type="text" th:value="Seattle" name="city" id="city" /><br>
+						<label>State </label><br><input type="text" th:value="WA" name="state" id="state" /><br>
+						<label>Zipcode </label><br><input type="text" th:field="*{zipcode}" /><br>
+						<label>Phone </label><br><input type="text" th:field="*{phone}" /><br>
+						<label>Site Info </label><br><input type="text" th:field="*{info}" /><br>
+						<label>Website </label><br><input type="text" th:field="*{website}" /><br>
+						<input type="submit" value="Submit" />
+				</form>
+			</div>
+		</div>
+		
+		
 	</body>
 </html>

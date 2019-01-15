@@ -109,7 +109,7 @@ public class LoginController{
 	
 	
 	@GetMapping(path = "/dashboard")
-	public String dashboard(HttpSession session, Model model, Record record, Food food, Foodvoucher foodvoucher, Transitional transitional, Housingvoucher housingvoucher) {
+	public String dashboard(HttpSession session, Model model, Record record, Food food, Foodvoucher foodvoucher, Transitional transitional, Housingvoucher housingvoucher, Clothing clothing) {
 		Object currentUser = session.getAttribute("mySessionAttribute");
 		//prevent access through URL bar "/dashboard"
 		if(currentUser == null) {
@@ -120,12 +120,14 @@ public class LoginController{
 			List<Foodvoucher> foodvouchers = (List<Foodvoucher>) foodvoucherRepository.findAll();
 			List<Transitional> houses = (List<Transitional>) transitionalRepository.findAll();
 			List<Housingvoucher> housevouchers = (List<Housingvoucher>) housingvoucherRepository.findAll();
+			List<Clothing> clothes = (List<Clothing>) clothingRepository.findAll();
 			
 			//passing data to template
 			model.addAttribute("foodpantries", foods);
 			model.addAttribute("foodvouchers", foodvouchers);
 			model.addAttribute("stores", houses);
 			model.addAttribute("vouchers", housevouchers);
+			model.addAttribute("clothes", clothes);
 			return "dashboard";
 		}		
 	}

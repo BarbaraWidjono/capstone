@@ -447,19 +447,22 @@ public class HomepageController{
 		}
 		
 		//http://localhost:8080/addclothing?name=***&street=***&city=***&state=***&zipcode=***&phone=***&info=***&website=***
-		@GetMapping(path="/addclothing")
+		@PostMapping(path="/addclothing")
 		@ResponseBody
-		public void addclothing(@RequestParam String name, @RequestParam String street, @RequestParam String city, @RequestParam String state, @RequestParam String zipcode, @RequestParam String phone, @RequestParam String info, @RequestParam String website) {
+		public RedirectView addclothing(@ModelAttribute Clothing clothing, HttpSession session) {
 			Clothing clothes = new Clothing();
-			clothes.setName(name);
-			clothes.setStreet(street);
-			clothes.setCity(city);
-			clothes.setState(state);
-			clothes.setZipcode(zipcode);
-			clothes.setPhone(phone);
-			clothes.setInfo(info);
-			clothes.setWebsite(website);
+			clothes.setName(clothing.getName());
+			clothes.setStreet(clothing.getStreet());
+			clothes.setCity(clothing.getCity());
+			clothes.setState(clothing.getState());
+			clothes.setZipcode(clothing.getZipcode());
+			clothes.setPhone(clothing.getPhone());
+			clothes.setInfo(clothing.getInfo());
+			clothes.setWebsite(clothing.getWebsite());
 			clothingRepository.save(clothes);
+			
+			session.setAttribute("mySessionAttribute", "tempuser");
+			return new RedirectView("/dashboard");
 		}
 		
 		//http://localhost:8080/addclinic?name=***&street=***&city=***&state=***&zipcode=***&phone=***&info=***&website=***
