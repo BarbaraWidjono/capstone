@@ -494,18 +494,21 @@ public class HomepageController{
 		}
 		
 		//http://localhost:8080/addclinic?name=***&street=***&city=***&state=***&zipcode=***&phone=***&info=***&website=***
-		@GetMapping(path="/addclinic")
+		@PostMapping(path="/addclinic")
 		@ResponseBody
-		public void addclinic(@RequestParam String name, @RequestParam String street, @RequestParam String city, @RequestParam String state, @RequestParam String zipcode, @RequestParam String phone, @RequestParam String info, @RequestParam String website) {
+		public RedirectView addclinic(@ModelAttribute Clinic clinic, HttpSession session) {
 			Clinic office = new Clinic();
-			office.setName(name);
-			office.setStreet(street);
-			office.setCity(city);
-			office.setState(state);
-			office.setZipcode(zipcode);
-			office.setPhone(phone);
-			office.setInfo(info);
-			office.setWebsite(website);
+			office.setName(clinic.getName());
+			office.setStreet(clinic.getStreet());
+			office.setCity(clinic.getCity());
+			office.setState(clinic.getState());
+			office.setZipcode(clinic.getZipcode());
+			office.setPhone(clinic.getPhone());
+			office.setInfo(clinic.getInfo());
+			office.setWebsite(clinic.getWebsite());
 			clinicRepository.save(office);
+			
+			session.setAttribute("mySessionAttribute", "tempuser");
+			return new RedirectView("/dashboard");
 		}
 }
