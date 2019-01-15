@@ -407,19 +407,22 @@ public class HomepageController{
 		}
 		
 		//http://localhost:8080/addhousingvoucher?name=***&street=***&city=***&state=***&zipcode=***&phone=***&info=***&website=***
-		@GetMapping(path="/addhousingvoucher")
+		@PostMapping(path="/addhousingvoucher")
 		@ResponseBody
-		public void addhousingvoucher(@RequestParam String name, @RequestParam String street, @RequestParam String city, @RequestParam String state, @RequestParam String zipcode, @RequestParam String phone, @RequestParam String info, @RequestParam String website) {
+		public RedirectView addhousingvoucher(@ModelAttribute Housingvoucher housingvoucher, HttpSession session) {
 			Housingvoucher house = new Housingvoucher();
-			house.setName(name);
-			house.setStreet(street);
-			house.setCity(city);
-			house.setState(state);
-			house.setZipcode(zipcode);
-			house.setPhone(phone);
-			house.setInfo(info);
-			house.setWebsite(website);
+			house.setName(housingvoucher.getName());
+			house.setStreet(housingvoucher.getStreet());
+			house.setCity(housingvoucher.getCity());
+			house.setState(housingvoucher.getState());
+			house.setZipcode(housingvoucher.getZipcode());
+			house.setPhone(housingvoucher.getPhone());
+			house.setInfo(housingvoucher.getInfo());
+			house.setWebsite(housingvoucher.getWebsite());
 			housingvoucherRepository.save(house);
+			
+			session.setAttribute("mySessionAttribute", "tempuser");
+			return new RedirectView("/dashboard");
 		}
 		
 		//http://localhost:8080/addclothing?name=***&street=***&city=***&state=***&zipcode=***&phone=***&info=***&website=***
