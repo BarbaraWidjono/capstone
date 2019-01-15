@@ -371,20 +371,22 @@ public class HomepageController{
 //		return new RedirectView("/dashboard");
 //	}
 		
-		//http://localhost:8080/addtransitional?name=***&street=***&city=***&state=***&zipcode=***&phone=***&info=***&website=***
-		@GetMapping(path="/addtransitional")
+		@PostMapping(path="/addtransitional")
 		@ResponseBody
-		public void addTransitional(@RequestParam String name, @RequestParam String street, @RequestParam String city, @RequestParam String state, @RequestParam String zipcode, @RequestParam String phone, @RequestParam String info, @RequestParam String website) {
+		public RedirectView addTransitional(@ModelAttribute Transitional transitional, HttpSession session) {
 			Transitional house = new Transitional();
-			house.setName(name);
-			house.setStreet(street);
-			house.setCity(city);
-			house.setState(state);
-			house.setZipcode(zipcode);
-			house.setPhone(phone);
-			house.setInfo(info);
-			house.setWebsite(website);
+			house.setName(transitional.getName());
+			house.setStreet(transitional.getStreet());
+			house.setCity(transitional.getCity());
+			house.setState(transitional.getState());
+			house.setZipcode(transitional.getZipcode());
+			house.setPhone(transitional.getPhone());
+			house.setInfo(transitional.getInfo());
+			house.setWebsite(transitional.getWebsite());
 			transitionalRepository.save(house);
+			
+			session.setAttribute("mySessionAttribute", "tempuser");
+			return new RedirectView("/dashboard");
 		}
 		
 		//http://localhost:8080/addhousingvoucher?name=***&street=***&city=***&state=***&zipcode=***&phone=***&info=***&website=***

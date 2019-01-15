@@ -43,7 +43,7 @@
 			<div class="forms">
 				<form action="#" th:action="@{/addfoodpantry}" th:object="${food}" method="post" class="form">
 					<div>
-						<label>Pantry Name: </label><input type="text" th:field="*{name}" />
+						<label>Name: </label><input type="text" th:field="*{name}" />
 						<label>Street Address: </label><input type="text" th:field="*{street}" />
 						<label>City: </label><input type="text" th:value="Seattle" name="city" id="city" />
 						<label>State: </label><input type="text" th:value="WA" name="state" id="state" />
@@ -92,7 +92,7 @@
 			<div class="forms">
 				<form action="#" th:action="@{/addfoodvoucher}" th:object="${foodvoucher}" method="post" class="form">
 					<div>
-						<label>Pantry Name: </label><input type="text" th:field="*{name}" />
+						<label>Name: </label><input type="text" th:field="*{name}" />
 						<label>Street Address: </label><input type="text" th:field="*{street}" />
 						<label>City: </label><input type="text" th:value="Seattle" name="city" id="city" />
 						<label>State: </label><input type="text" th:value="WA" name="state" id="state" />
@@ -107,5 +107,55 @@
 				</form>
 			</div>
 		</div>
+		
+		<h3>Transitional Housing</h3>
+		<div class = "category">
+			<div class = "list">
+				<table>
+					<tr>
+						<th>Organization</th>
+						<th>Address</th>
+						<th>City</th>
+						<th>State</th>
+						<th>Zipcode</th>
+						<th>Phone</th>
+						<th>Site Info</th>
+						<th>Website</th>
+						<th>Delete</th>
+					</tr>
+					<tr th:each="store: ${stores}">
+						<td th:text="${store.name}">
+						<td th:text="${store.street}">
+						<td th:text="${store.city}">
+						<td th:text="${store.state}">
+						<td th:text="${store.zipcode}">
+						<td th:text="${store.phone}">
+						<td th:text="${store.info}">
+						<td th:text="${store.website}">
+						<td><!-- <a th:href="@{/deletefoodpantry/{id}(id=${pantry.id})}">Delete</a> --></td>
+					</tr>
+				</table>
+			
+			</div>
+			<h5>Add a record</h5>
+			<div class="forms">
+				<form action="#" th:action="@{/addtransitional}" th:object="${transitional}" method="post" class="form">
+					<div>
+						<label>Name: </label><input type="text" th:field="*{name}" />
+						<label>Street Address: </label><input type="text" th:field="*{street}" />
+						<label>City: </label><input type="text" th:value="Seattle" name="city" id="city" />
+						<label>State: </label><input type="text" th:value="WA" name="state" id="state" />
+						<label>Zipcode: </label><input type="text" th:field="*{zipcode}" />
+					</div>
+					<div>
+						<label>Phone: </label><input type="text" th:field="*{phone}" />
+						<label>Site Info: </label><input type="text" th:field="*{info}" />
+						<label>Website: </label><input type="text" th:field="*{website}" />
+						<p><input type="submit" value="Submit" /></p>
+					</div>
+				</form>
+			</div>
+		</div>
+		
 	</body>
 </html>
