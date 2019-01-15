@@ -391,7 +391,7 @@ public class HomepageController{
 		}
 		
 		@GetMapping("/deletetransitional/{id}")
-		public String deleteTransitional(@PathVariable("id") Integer id, Model model, Food food, Foodvoucher foodvoucher, Transitional transitional, Housingvoucher housingvoucher) {
+		public String deleteTransitional(@PathVariable("id") Integer id, Model model, Food food, Foodvoucher foodvoucher, Transitional transitional, Housingvoucher housingvoucher, Clothing clothing) {
 			transitionalRepository.deleteById(id);
 			
 			List<Food> foods = (List<Food>) foodRepository.findAll();
@@ -405,6 +405,9 @@ public class HomepageController{
 			
 			List<Housingvoucher> housevouchers = (List<Housingvoucher>) housingvoucherRepository.findAll();
 			model.addAttribute("vouchers", housevouchers);
+			
+			List<Clothing> clothes = (List<Clothing>) clothingRepository.findAll();
+			model.addAttribute("clothes", clothes);
 			
 			return "dashboard";
 		}
@@ -428,8 +431,8 @@ public class HomepageController{
 		}
 		
 		@GetMapping("/deletehousingvoucher/{id}")
-		public String deleteHousingvoucher(@PathVariable("id") Integer id, Model model, Food food, Foodvoucher foodvoucher, Transitional transitional, Housingvoucher housingvoucher) {
-			housingvoucherRepository.deleteById(id);
+		public String deleteHousingvoucher(@PathVariable("id") Integer id, Model model, Food food, Foodvoucher foodvoucher, Transitional transitional, Housingvoucher housingvoucher, Clothing clothing) {
+			clothingRepository.deleteById(id);
 			
 			List<Food> foods = (List<Food>) foodRepository.findAll();
 			model.addAttribute("foodpantries", foods);
@@ -442,6 +445,9 @@ public class HomepageController{
 			
 			List<Housingvoucher> housevouchers = (List<Housingvoucher>) housingvoucherRepository.findAll();
 			model.addAttribute("vouchers", housevouchers);
+			
+			List<Clothing> clothes = (List<Clothing>) clothingRepository.findAll();
+			model.addAttribute("clothes", clothes);
 			
 			return "dashboard";
 		}
@@ -463,6 +469,28 @@ public class HomepageController{
 			
 			session.setAttribute("mySessionAttribute", "tempuser");
 			return new RedirectView("/dashboard");
+		}
+		
+		@GetMapping("/deleteclothing/{id}")
+		public String deleteClothing(@PathVariable("id") Integer id, Model model, Food food, Foodvoucher foodvoucher, Transitional transitional, Housingvoucher housingvoucher, Clothing clothing) {
+			clothingRepository.deleteById(id);
+			
+			List<Food> foods = (List<Food>) foodRepository.findAll();
+			model.addAttribute("foodpantries", foods);
+			
+			List<Foodvoucher> foodvouchers = (List<Foodvoucher>) foodvoucherRepository.findAll();
+			model.addAttribute("foodvouchers", foodvouchers);
+			
+			List<Transitional> houses = (List<Transitional>) transitionalRepository.findAll();
+			model.addAttribute("stores", houses);
+			
+			List<Housingvoucher> housevouchers = (List<Housingvoucher>) housingvoucherRepository.findAll();
+			model.addAttribute("vouchers", housevouchers);
+			
+			List<Clothing> clothes = (List<Clothing>) clothingRepository.findAll();
+			model.addAttribute("clothes", clothes);
+			
+			return "dashboard";
 		}
 		
 		//http://localhost:8080/addclinic?name=***&street=***&city=***&state=***&zipcode=***&phone=***&info=***&website=***
