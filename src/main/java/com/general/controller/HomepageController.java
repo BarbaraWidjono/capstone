@@ -391,7 +391,7 @@ public class HomepageController{
 		}
 		
 		@GetMapping("/deletetransitional/{id}")
-		public String deleteTransitional(@PathVariable("id") Integer id, Model model, Food food, Foodvoucher foodvoucher, Transitional transitional) {
+		public String deleteTransitional(@PathVariable("id") Integer id, Model model, Food food, Foodvoucher foodvoucher, Transitional transitional, Housingvoucher housingvoucher) {
 			transitionalRepository.deleteById(id);
 			
 			List<Food> foods = (List<Food>) foodRepository.findAll();
@@ -403,10 +403,12 @@ public class HomepageController{
 			List<Transitional> houses = (List<Transitional>) transitionalRepository.findAll();
 			model.addAttribute("stores", houses);
 			
+			List<Housingvoucher> housevouchers = (List<Housingvoucher>) housingvoucherRepository.findAll();
+			model.addAttribute("vouchers", housevouchers);
+			
 			return "dashboard";
 		}
 		
-		//http://localhost:8080/addhousingvoucher?name=***&street=***&city=***&state=***&zipcode=***&phone=***&info=***&website=***
 		@PostMapping(path="/addhousingvoucher")
 		@ResponseBody
 		public RedirectView addhousingvoucher(@ModelAttribute Housingvoucher housingvoucher, HttpSession session) {
@@ -423,6 +425,25 @@ public class HomepageController{
 			
 			session.setAttribute("mySessionAttribute", "tempuser");
 			return new RedirectView("/dashboard");
+		}
+		
+		@GetMapping("/deletehousingvoucher/{id}")
+		public String deleteHousingvoucher(@PathVariable("id") Integer id, Model model, Food food, Foodvoucher foodvoucher, Transitional transitional, Housingvoucher housingvoucher) {
+			housingvoucherRepository.deleteById(id);
+			
+			List<Food> foods = (List<Food>) foodRepository.findAll();
+			model.addAttribute("foodpantries", foods);
+			
+			List<Foodvoucher> foodvouchers = (List<Foodvoucher>) foodvoucherRepository.findAll();
+			model.addAttribute("foodvouchers", foodvouchers);
+			
+			List<Transitional> houses = (List<Transitional>) transitionalRepository.findAll();
+			model.addAttribute("stores", houses);
+			
+			List<Housingvoucher> housevouchers = (List<Housingvoucher>) housingvoucherRepository.findAll();
+			model.addAttribute("vouchers", housevouchers);
+			
+			return "dashboard";
 		}
 		
 		//http://localhost:8080/addclothing?name=***&street=***&city=***&state=***&zipcode=***&phone=***&info=***&website=***
