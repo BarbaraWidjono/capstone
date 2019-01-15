@@ -93,18 +93,27 @@
 				</table>
 			
 			</div>
-			<h5>Add a record</h5>
+			
 			<div class="forms">
-				<form action="#" th:action="@{/addfoodvoucher}" th:object="${foodvoucher}" method="post">
-						<label>Name </label><br><input type="text" th:field="*{name}" /><br>
-						<label>Street Address </label><br><input type="text" th:field="*{street}" /><br>
-						<label>City </label><br><input type="text" th:value="Seattle" name="city" id="city" /><br>
-						<label>State </label><br><input type="text" th:value="WA" name="state" id="state" /><br>
-						<label>Zipcode </label><br><input type="text" th:field="*{zipcode}" /><br>
-						<label>Phone </label><br><input type="text" th:field="*{phone}" /><br>
-						<label>Site Info </label><br><input type="text" th:field="*{info}" /><br>
-						<label>Website </label><br><input type="text" th:field="*{website}" /><br>
-						<input type="submit" value="Submit" />
+				<form action="#" th:action="@{/addfoodvoucher}" th:object="${foodvoucher}" method="post" class="formborder">
+						<div class="top">
+							<h5>Add a record</h5>
+						</div>
+						<div class="bottom">
+							<div class="left">
+								<label>Name </label><br><input type="text" th:field="*{name}" /><br>
+								<label>Street Address </label><br><input type="text" th:field="*{street}" /><br>
+								<label>City </label><br><input type="text" th:value="Seattle" name="city" id="city" /><br>
+								<label>State </label><br><input type="text" th:value="WA" name="state" id="state" /><br>
+								<label>Zipcode </label><br><input type="text" th:field="*{zipcode}" /><br>
+							</div>
+							<div class="right">
+								<label>Phone </label><br><input type="text" th:field="*{phone}" /><br>
+								<label>Site Info </label><br><input type="text" th:field="*{info}" /><br>
+								<label>Website </label><br><input type="text" th:field="*{website}" /><br>
+								<input type="submit" value="Submit" />
+							</div>
+						</div>
 				</form>
 			</div>
 		</div>
@@ -138,18 +147,27 @@
 				</table>
 			
 			</div>
-			<h5>Add a record</h5>
+			
 			<div class="forms">
-				<form action="#" th:action="@{/addtransitional}" th:object="${transitional}" method="post">
-						<label>Name </label><br><input type="text" th:field="*{name}" /><br>
-						<label>Street Address </label><br><input type="text" th:field="*{street}" /><br>
-						<label>City </label><br><input type="text" th:value="Seattle" name="city" id="city" /><br>
-						<label>State </label><br><input type="text" th:value="WA" name="state" id="state" /><br>
-						<label>Zipcode </label><br><input type="text" th:field="*{zipcode}" /><br>
-						<label>Phone </label><br><input type="text" th:field="*{phone}" /><br>
-						<label>Site Info </label><br><input type="text" th:field="*{info}" /><br>
-						<label>Website </label><br><input type="text" th:field="*{website}" /><br>
-						<input type="submit" value="Submit" />
+				<form action="#" th:action="@{/addtransitional}" th:object="${transitional}" method="post" class="formborder">
+					<div class="top">
+						<h5>Add a record</h5>
+					</div>
+					<div class="bottom">
+						<div class="left">	
+							<label>Name </label><br><input type="text" th:field="*{name}" /><br>
+							<label>Street Address </label><br><input type="text" th:field="*{street}" /><br>
+							<label>City </label><br><input type="text" th:value="Seattle" name="city" id="city" /><br>
+							<label>State </label><br><input type="text" th:value="WA" name="state" id="state" /><br>
+							<label>Zipcode </label><br><input type="text" th:field="*{zipcode}" /><br>
+						</div>
+						<div class="right">
+							<label>Phone </label><br><input type="text" th:field="*{phone}" /><br>
+							<label>Site Info </label><br><input type="text" th:field="*{info}" /><br>
+							<label>Website </label><br><input type="text" th:field="*{website}" /><br>
+							<input type="submit" value="Submit" />
+						</div>
+					</div>	
 				</form>
 			</div>
 		</div>
@@ -184,18 +202,27 @@
 				</table>
 			
 			</div>
-			<h5>Add a record</h5>
+			
 			<div class="forms">
-				<form action="#" th:action="@{/addhousingvoucher}" th:object="${housingvoucher}" method="post">
-						<label>Name </label><br><input type="text" th:field="*{name}" /><br>
-						<label>Street Address </label><br><input type="text" th:field="*{street}" /><br>
-						<label>City </label><br><input type="text" th:value="Seattle" name="city" id="city" /><br>
-						<label>State </label><br><input type="text" th:value="WA" name="state" id="state" /><br>
-						<label>Zipcode </label><br><input type="text" th:field="*{zipcode}" /><br>
-						<label>Phone </label><br><input type="text" th:field="*{phone}" /><br>
-						<label>Site Info </label><br><input type="text" th:field="*{info}" /><br>
-						<label>Website </label><br><input type="text" th:field="*{website}" /><br>
-						<input type="submit" value="Submit" />
+				<form action="#" th:action="@{/addhousingvoucher}" th:object="${housingvoucher}" method="post" class="formborder">
+					<div class="top">
+						<h5>Add a record</h5>
+					</div>
+					<div class="bottom">
+						<div class="left">	
+							<label>Name </label><br><input type="text" th:field="*{name}" /><br>
+							<label>Street Address </label><br><input type="text" th:field="*{street}" /><br>
+							<label>City </label><br><input type="text" th:value="Seattle" name="city" id="city" /><br>
+							<label>State </label><br><input type="text" th:value="WA" name="state" id="state" /><br>
+							<label>Zipcode </label><br><input type="text" th:field="*{zipcode}" /><br>
+						</div>
+						<div class="right">
+							<label>Phone </label><br><input type="text" th:field="*{phone}" /><br>
+							<label>Site Info </label><br><input type="text" th:field="*{info}" /><br>
+							<label>Website </label><br><input type="text" th:field="*{website}" /><br>
+							<input type="submit" value="Submit" />
+						</div>
+					</div>	
 				</form>
 			</div>
 		</div>
@@ -229,23 +256,32 @@
 				</table>
 			
 			</div>
-			<h5>Add a record</h5>
+			
 			<div class="forms">
-				<form action="#" th:action="@{/addclothing}" th:object="${clothing}" method="post">
-						<label>Name </label><br><input type="text" th:field="*{name}" /><br>
-						<label>Street Address </label><br><input type="text" th:field="*{street}" /><br>
-						<label>City </label><br><input type="text" th:value="Seattle" name="city" id="city" /><br>
-						<label>State </label><br><input type="text" th:value="WA" name="state" id="state" /><br>
-						<label>Zipcode </label><br><input type="text" th:field="*{zipcode}" /><br>
-						<label>Phone </label><br><input type="text" th:field="*{phone}" /><br>
-						<label>Site Info </label><br><input type="text" th:field="*{info}" /><br>
-						<label>Website </label><br><input type="text" th:field="*{website}" /><br>
-						<input type="submit" value="Submit" />
+				<form action="#" th:action="@{/addclothing}" th:object="${clothing}" method="post" class="formborder">
+					<div class="top">
+						<h5>Add a record</h5>
+					</div>
+					<div class="bottom">	
+						<div class="left">
+							<label>Name </label><br><input type="text" th:field="*{name}" /><br>
+							<label>Street Address </label><br><input type="text" th:field="*{street}" /><br>
+							<label>City </label><br><input type="text" th:value="Seattle" name="city" id="city" /><br>
+							<label>State </label><br><input type="text" th:value="WA" name="state" id="state" /><br>
+							<label>Zipcode </label><br><input type="text" th:field="*{zipcode}" /><br>
+						</div>
+						<div class="right">
+							<label>Phone </label><br><input type="text" th:field="*{phone}" /><br>
+							<label>Site Info </label><br><input type="text" th:field="*{info}" /><br>
+							<label>Website </label><br><input type="text" th:field="*{website}" /><br>
+							<input type="submit" value="Submit" />
+						</div>
+					</div>	
 				</form>
 			</div>
 		</div>
 		
-		<h3>Clincis</h3>
+		<h3>Clinics</h3>
 		<div class = "category">
 			<div class = "list">
 				<table>
@@ -274,18 +310,27 @@
 				</table>
 			
 			</div>
-			<h5>Add a record</h5>
+			
 			<div class="forms">
-				<form action="#" th:action="@{/addclinic}" th:object="${clinic}" method="post">
-						<label>Name </label><br><input type="text" th:field="*{name}" /><br>
-						<label>Street Address </label><br><input type="text" th:field="*{street}" /><br>
-						<label>City </label><br><input type="text" th:value="Seattle" name="city" id="city" /><br>
-						<label>State </label><br><input type="text" th:value="WA" name="state" id="state" /><br>
-						<label>Zipcode </label><br><input type="text" th:field="*{zipcode}" /><br>
-						<label>Phone </label><br><input type="text" th:field="*{phone}" /><br>
-						<label>Site Info </label><br><input type="text" th:field="*{info}" /><br>
-						<label>Website </label><br><input type="text" th:field="*{website}" /><br>
-						<input type="submit" value="Submit" />
+				<form action="#" th:action="@{/addclinic}" th:object="${clinic}" method="post" class="formborder">
+					<div class="top">
+						<h5>Add a record</h5>
+					</div>
+					<div class="bottom">
+						<div class="left">
+							<label>Name </label><br><input type="text" th:field="*{name}" /><br>
+							<label>Street Address </label><br><input type="text" th:field="*{street}" /><br>
+							<label>City </label><br><input type="text" th:value="Seattle" name="city" id="city" /><br>
+							<label>State </label><br><input type="text" th:value="WA" name="state" id="state" /><br>
+							<label>Zipcode </label><br><input type="text" th:field="*{zipcode}" /><br>
+						</div>
+						<div class="right">
+							<label>Phone </label><br><input type="text" th:field="*{phone}" /><br>
+							<label>Site Info </label><br><input type="text" th:field="*{info}" /><br>
+							<label>Website </label><br><input type="text" th:field="*{website}" /><br>
+							<input type="submit" value="Submit" />
+						</div>
+					</div>	
 				</form>
 			</div>
 		</div>
