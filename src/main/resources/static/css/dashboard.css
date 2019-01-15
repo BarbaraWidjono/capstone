@@ -28,17 +28,14 @@ h5{
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
-
-p{
-	margin-top: 10px;
-	margin-bottom: 0px;
+.forms{
+	width: 50%;
 }
 
-.form{
-	display: flex;
-	flex-direction: column;
+input[type=text]{
+	width: 400px;
 }
 
-input{
-	margin-top: 5px;
+label{
+	font-size: 13px
 }
