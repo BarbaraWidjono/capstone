@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 	<head lang="en">
-		<title>Food Pantries</title>
+		<title>Transitional</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 		<link href="../static/css/results.css" th:href="@{/css/results.css}" rel="stylesheet" />
 		
@@ -27,7 +27,7 @@
 						<a th:target="_blank" th:href="@{https://www.google.com/maps/dir/?api=1&destination={location}+Seattle+WA(location=${store.street})}">Directions</a>
 						<p>Have information about this site texted to you</p>
 						
-						<form action="#" th:action="@{/textfoodpantries}" th:object="${text}" method="post">
+						<form action="#" th:action="@{/texttransitional}" th:object="${text}" method="post">
 					    	<input type="hidden" th:value="${store.name}" name="name" id="name" />				    	
 					       	<input type="hidden" th:value="${store.street}" name="address" id="address" />
 					       	<input type="hidden" th:value="${store.phone}" name="resnumber" id="resnumber" />

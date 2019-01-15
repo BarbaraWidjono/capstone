@@ -106,63 +106,63 @@ public class HomepageController{
 	    }	
 	}
 	
-	@GetMapping(path="/transitional")
-	public String transitional(Model model, Text text) {
-		//Read records from db
-		List<Transitional> houses = (List<Transitional>) transitionalRepository.findAll();
-		
-		ArrayList<HashMap> coordinates = new ArrayList<HashMap>();
-		
-		for(Transitional house : houses) {
-			//Create endpoint
-			String baseURL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
-			String street = house.getStreet();
-			String endURL = ",+Seattle,+WA&key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8";
-			String endpoint = baseURL + street + endURL;
-			System.out.println(endpoint);
-			
-			//api call
-			RestTemplate restTemplate = new RestTemplate();
-			String resourceURL = endpoint;
-			ResponseEntity<String> responsey = restTemplate.getForEntity(resourceURL, String.class);
-			String jsonString = responsey.getBody();
-			
-			GsonBuilder builder = new GsonBuilder();
-			builder.setPrettyPrinting();
-			Gson gson = builder.create();
-			Response response = gson.fromJson(jsonString, Response.class);
-			
-			//Convert coordinates to string
-			Double latitude = response.getResults().get(0).getGeometry().getLocation().getLat();
-			String latitudeString = String.valueOf(latitude);			
-			Double longitude = response.getResults().get(0).getGeometry().getLocation().getLng();
-			String longitudeString = String.valueOf(longitude);
-			
-			//Insert gps coordinates
-			HashMap<String, String> location = new HashMap<String, String>();
-			location.put("lat", latitudeString);
-			location.put("lng", longitudeString);
-
-			//Create infowindows
-			String infowindow = String.format("<div id=\"content\"><div id=\"siteNotice\"></div>\n" + 
-					"<h1 id=\"firstHeading\" class=\"firstHeading\">%s</h1>\n" + 
-					"<div id=\"bodyContent\">\n" + 
-					"<p>%s</p> \n" + 
-					"<p>%s</p> \n" + 
-					"<p>%s</p> \n" + 
-					"</div>\n" + 
-					"</div>", house.getName(), house.getStreet(), house.getPhone(), house.getInfo());
-			location.put("info", infowindow);
-			coordinates.add(location);
-			System.out.println(coordinates);			
-		}
-		
-		//passing data to template
-		model.addAttribute("sources", coordinates);
-		model.addAttribute("heading", "Transitional Housing");
-		model.addAttribute("stores", houses);
-		return "results";
-	}
+//	@GetMapping(path="/transitional")
+//	public String transitional(Model model, Text text) {
+//		//Read records from db
+//		List<Transitional> houses = (List<Transitional>) transitionalRepository.findAll();
+//		
+//		ArrayList<HashMap> coordinates = new ArrayList<HashMap>();
+//		
+//		for(Transitional house : houses) {
+//			//Create endpoint
+//			String baseURL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
+//			String street = house.getStreet();
+//			String endURL = ",+Seattle,+WA&key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8";
+//			String endpoint = baseURL + street + endURL;
+//			System.out.println(endpoint);
+//			
+//			//api call
+//			RestTemplate restTemplate = new RestTemplate();
+//			String resourceURL = endpoint;
+//			ResponseEntity<String> responsey = restTemplate.getForEntity(resourceURL, String.class);
+//			String jsonString = responsey.getBody();
+//			
+//			GsonBuilder builder = new GsonBuilder();
+//			builder.setPrettyPrinting();
+//			Gson gson = builder.create();
+//			Response response = gson.fromJson(jsonString, Response.class);
+//			
+//			//Convert coordinates to string
+//			Double latitude = response.getResults().get(0).getGeometry().getLocation().getLat();
+//			String latitudeString = String.valueOf(latitude);			
+//			Double longitude = response.getResults().get(0).getGeometry().getLocation().getLng();
+//			String longitudeString = String.valueOf(longitude);
+//			
+//			//Insert gps coordinates
+//			HashMap<String, String> location = new HashMap<String, String>();
+//			location.put("lat", latitudeString);
+//			location.put("lng", longitudeString);
+//
+//			//Create infowindows
+//			String infowindow = String.format("<div id=\"content\"><div id=\"siteNotice\"></div>\n" + 
+//					"<h1 id=\"firstHeading\" class=\"firstHeading\">%s</h1>\n" + 
+//					"<div id=\"bodyContent\">\n" + 
+//					"<p>%s</p> \n" + 
+//					"<p>%s</p> \n" + 
+//					"<p>%s</p> \n" + 
+//					"</div>\n" + 
+//					"</div>", house.getName(), house.getStreet(), house.getPhone(), house.getInfo());
+//			location.put("info", infowindow);
+//			coordinates.add(location);
+//			System.out.println(coordinates);			
+//		}
+//		
+//		//passing data to template
+//		model.addAttribute("sources", coordinates);
+//		model.addAttribute("heading", "Transitional Housing");
+//		model.addAttribute("stores", houses);
+//		return "results";
+//	}
 	
 	@GetMapping(path="/housingvoucher")
 	public String housingvoucher(Model model, Text text) {
@@ -372,48 +372,48 @@ public class HomepageController{
 //		return new RedirectView("/dashboard");
 //	}
 		
-		@PostMapping(path="/addtransitional")
-		@ResponseBody
-		public RedirectView addTransitional(@ModelAttribute Transitional transitional, HttpSession session) {
-			Transitional house = new Transitional();
-			house.setName(transitional.getName());
-			house.setStreet(transitional.getStreet());
-			house.setCity(transitional.getCity());
-			house.setState(transitional.getState());
-			house.setZipcode(transitional.getZipcode());
-			house.setPhone(transitional.getPhone());
-			house.setInfo(transitional.getInfo());
-			house.setWebsite(transitional.getWebsite());
-			transitionalRepository.save(house);
-			
-			session.setAttribute("mySessionAttribute", "tempuser");
-			return new RedirectView("/dashboard");
-		}
-		
-		@GetMapping("/deletetransitional/{id}")
-		public String deleteTransitional(@PathVariable("id") Integer id, Model model, Food food, Foodvoucher foodvoucher, Transitional transitional, Housingvoucher housingvoucher, Clothing clothing, Clinic clinic) {
-			transitionalRepository.deleteById(id);
-			
-			List<Food> foods = (List<Food>) foodRepository.findAll();
-			model.addAttribute("foodpantries", foods);
-			
-			List<Foodvoucher> foodvouchers = (List<Foodvoucher>) foodvoucherRepository.findAll();
-			model.addAttribute("foodvouchers", foodvouchers);
-			
-			List<Transitional> houses = (List<Transitional>) transitionalRepository.findAll();
-			model.addAttribute("stores", houses);
-			
-			List<Housingvoucher> housevouchers = (List<Housingvoucher>) housingvoucherRepository.findAll();
-			model.addAttribute("vouchers", housevouchers);
-			
-			List<Clothing> clothes = (List<Clothing>) clothingRepository.findAll();
-			model.addAttribute("clothes", clothes);
-			
-			List<Clinic> clinics = (List<Clinic>) clinicRepository.findAll();
-			model.addAttribute("clinics", clinics);
-			
-			return "dashboard";
-		}
+//		@PostMapping(path="/addtransitional")
+//		@ResponseBody
+//		public RedirectView addTransitional(@ModelAttribute Transitional transitional, HttpSession session) {
+//			Transitional house = new Transitional();
+//			house.setName(transitional.getName());
+//			house.setStreet(transitional.getStreet());
+//			house.setCity(transitional.getCity());
+//			house.setState(transitional.getState());
+//			house.setZipcode(transitional.getZipcode());
+//			house.setPhone(transitional.getPhone());
+//			house.setInfo(transitional.getInfo());
+//			house.setWebsite(transitional.getWebsite());
+//			transitionalRepository.save(house);
+//			
+//			session.setAttribute("mySessionAttribute", "tempuser");
+//			return new RedirectView("/dashboard");
+//		}
+//		
+//		@GetMapping("/deletetransitional/{id}")
+//		public String deleteTransitional(@PathVariable("id") Integer id, Model model, Food food, Foodvoucher foodvoucher, Transitional transitional, Housingvoucher housingvoucher, Clothing clothing, Clinic clinic) {
+//			transitionalRepository.deleteById(id);
+//			
+//			List<Food> foods = (List<Food>) foodRepository.findAll();
+//			model.addAttribute("foodpantries", foods);
+//			
+//			List<Foodvoucher> foodvouchers = (List<Foodvoucher>) foodvoucherRepository.findAll();
+//			model.addAttribute("foodvouchers", foodvouchers);
+//			
+//			List<Transitional> houses = (List<Transitional>) transitionalRepository.findAll();
+//			model.addAttribute("stores", houses);
+//			
+//			List<Housingvoucher> housevouchers = (List<Housingvoucher>) housingvoucherRepository.findAll();
+//			model.addAttribute("vouchers", housevouchers);
+//			
+//			List<Clothing> clothes = (List<Clothing>) clothingRepository.findAll();
+//			model.addAttribute("clothes", clothes);
+//			
+//			List<Clinic> clinics = (List<Clinic>) clinicRepository.findAll();
+//			model.addAttribute("clinics", clinics);
+//			
+//			return "dashboard";
+//		}
 		
 		@PostMapping(path="/addhousingvoucher")
 		@ResponseBody
