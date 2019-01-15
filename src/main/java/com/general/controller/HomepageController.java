@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -387,6 +388,22 @@ public class HomepageController{
 			
 			session.setAttribute("mySessionAttribute", "tempuser");
 			return new RedirectView("/dashboard");
+		}
+		
+		@GetMapping("/deletetransitional/{id}")
+		public String deleteTransitional(@PathVariable("id") Integer id, Model model, Food food, Foodvoucher foodvoucher, Transitional transitional) {
+			transitionalRepository.deleteById(id);
+			
+			List<Food> foods = (List<Food>) foodRepository.findAll();
+			model.addAttribute("foodpantries", foods);
+			
+			List<Foodvoucher> foodvouchers = (List<Foodvoucher>) foodvoucherRepository.findAll();
+			model.addAttribute("foodvouchers", foodvouchers);
+			
+			List<Transitional> houses = (List<Transitional>) transitionalRepository.findAll();
+			model.addAttribute("stores", houses);
+			
+			return "dashboard";
 		}
 		
 		//http://localhost:8080/addhousingvoucher?name=***&street=***&city=***&state=***&zipcode=***&phone=***&info=***&website=***

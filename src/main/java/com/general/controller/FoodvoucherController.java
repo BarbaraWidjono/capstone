@@ -178,7 +178,7 @@ public class FoodvoucherController{
 	}
 	
 	@GetMapping("/deletefoodvoucher/{id}")
-	public String deleteFoodvoucher(@PathVariable("id") Integer id, Model model, Food food, Foodvoucher foodvoucher) {
+	public String deleteFoodvoucher(@PathVariable("id") Integer id, Model model, Food food, Foodvoucher foodvoucher, Transitional transitional) {
 		foodvoucherRepository.deleteById(id);
 		
 		List<Food> foods = (List<Food>) foodRepository.findAll();
@@ -186,6 +186,9 @@ public class FoodvoucherController{
 		
 		List<Foodvoucher> foodvouchers = (List<Foodvoucher>) foodvoucherRepository.findAll();
 		model.addAttribute("foodvouchers", foodvouchers);
+		
+		List<Transitional> houses = (List<Transitional>) transitionalRepository.findAll();
+		model.addAttribute("stores", houses);
 		
 		return "dashboard";
 	}
