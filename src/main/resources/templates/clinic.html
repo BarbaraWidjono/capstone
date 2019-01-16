@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head lang="en">
+		<title>Food Pantries</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<link href="../static/css/results.css" th:href="@{/css/results.css}" rel="stylesheet" />
+		
+	</head>
+	
+	<body>
+		<h1 class="header" th:text="${heading}"/>
+		
+		<div class="resultspage">
+			<div class="allresults">
+				<div class="result" th:id="${store.id}" th:each="store: ${stores}">
+
+						<h3 th:text="${store.name}"/>
+						<p th:text="${store.street}"/>
+						<div class="city">
+							<p th:text="${store.city}"/>
+							<p th:text="${store.state}"/>
+							<p th:text="${store.zipcode}"/>
+						</div>
+						<p th:text="${store.phone}"/>
+						<p th:text="${store.info}"/>
+						<a th:target="_blank" th:href="${store.website}">Website</a>
+						<a th:target="_blank" th:href="@{https://www.google.com/maps/dir/?api=1&destination={location}+Seattle+WA(location=${store.street})}">Directions</a>
+						<p>Have information about this site texted to you</p>
+						
+						<form action="#" th:action="@{/textclinic}" th:object="${text}" method="post">
+					    	<input type="hidden" th:value="${store.name}" name="name" id="name" />				    	
+					       	<input type="hidden" th:value="${store.street}" name="address" id="address" />
+					       	<input type="hidden" th:value="${store.phone}" name="resnumber" id="resnumber" />
+					       	<input type="hidden" th:value="${store.info}" name="info" id="info" />
+					       	<p>Your phone number(example: 2063215678): <input type="tel" th:field="*{number}" pattern="[0-9]{10}" /></p>
+					        <p><input type="submit" value="Send" /></p>
+					    </form>
+						 
+				</div>
+			</div>
+			<div id="map"></div>
+		</div>
+		
+		<script th:inline="javascript">
+		
+		
+		function initMap() {
+				
+			var map;
+			var markers = [];
+			  //anchor location
+			  var anchor = {lat: 47.685880, lng: -122.337290};
+			  map = new google.maps.Map(
+			      document.getElementById('map'), {zoom: 11, center: new google.maps.LatLng(47.685880, -122.337290), mapTypeId: google.maps.MapTypeId.ROADMAP});
+			  
+			  var locations = [[${sources}]];
+			  console.log(locations);
+			  
+			  var marker;
+			  for(var i=0; i<locations.length; i++){
+				  
+				  var latitude = parseFloat(locations[i]["lat"]);
+				  var longitude = parseFloat(locations[i]["lng"]);
+				  var latlngset = new google.maps.LatLng(latitude, longitude);
+				  var info = locations[i]["info"];
+				  
+				  markers[i] = new google.maps.Marker({
+					  position: {lat: latitude, lng: longitude},
+					  map: map,
+					  html: info,
+					  id: i
+				  });
+				  			  
+				  google.maps.event.addListener(markers[i], 'click', function(){
+					  var infowindow = new google.maps.InfoWindow({
+						  id: this.id,
+						  content: this.html,
+						  position: this.getPosition()
+					  });
+					  google.maps.event.addListenerOnce(infowindow, 'closeclick',
+							  function(){
+						  markers[this.id].setVisible(true);
+					  });
+					  this.setVisible(false);
+					  infowindow.open(map);
+				  });
+				  
+			  }  
+			}
+		</script>
+		
+		<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8&callback=initMap">
+		</script>
+	</body>
+</html>
