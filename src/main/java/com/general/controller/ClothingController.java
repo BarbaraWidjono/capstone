@@ -59,7 +59,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder; 
 
 @Controller
-public class HousingvoucherController{
+public class ClothingController{
 	
 	public static final String ACCOUNT_SID = "";
 	public static final String AUTH_TOKEN = "";
@@ -85,17 +85,16 @@ public class HousingvoucherController{
 	@Autowired
 	private UserRepository userRepository;
 	
-	@GetMapping(path="/housingvoucher")
-	public String housingvoucher(Model model, Text text) {
-		//read db
-		List<Housingvoucher> houses = (List<Housingvoucher>) housingvoucherRepository.findAll();
+	@GetMapping(path="/clothing")
+	public String clothing(Model model, Text text) {
+		List<Clothing> clothes = (List<Clothing>) clothingRepository.findAll();
 		
 		ArrayList<HashMap> coordinates = new ArrayList<HashMap>();
 		
-		for(Housingvoucher house : houses) {
+		for(Clothing cloth : clothes) {
 			//Create endpoint
 			String baseURL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
-			String street = house.getStreet();
+			String street = cloth.getStreet();
 			String endURL = ",+Seattle,+WA&key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8";
 			String endpoint = baseURL + street + endURL;
 			System.out.println(endpoint);
@@ -130,7 +129,7 @@ public class HousingvoucherController{
 					"<p>%s</p> \n" + 
 					"<p>%s</p> \n" + 
 					"</div>\n" + 
-					"</div>", house.getName(), house.getStreet(), house.getPhone(), house.getInfo());
+					"</div>", cloth.getName(), cloth.getStreet(), cloth.getPhone(), cloth.getInfo());
 			location.put("info", infowindow);
 			coordinates.add(location);
 			System.out.println(coordinates);			
@@ -138,12 +137,12 @@ public class HousingvoucherController{
 		
 		//passing data to template
 		model.addAttribute("sources", coordinates);
-		model.addAttribute("heading", "Housing Vouchers");
-		model.addAttribute("stores", houses);
-		return "housingvoucher";
+		model.addAttribute("heading", "Clothing");
+		model.addAttribute("stores", clothes);
+		return "clothing";
 	}
 	
-	@PostMapping(path = "/texthousingvoucher")
+	@PostMapping(path = "/textclothing")
 //	@ResponseStatus(value = HttpStatus.OK)
 	public RedirectView message(@ModelAttribute Text text) {
 		
@@ -160,33 +159,33 @@ public class HousingvoucherController{
 	    //System.out.println(message.getSid());
 	    //System.out.println(message.getErrorCode());
 	    if(message.getErrorCode() == null) {
-	    	return new RedirectView("/housingvoucher");
+	    	return new RedirectView("/clothing");
 	    }else {
-	    	return new RedirectView("/housingvoucher");
+	    	return new RedirectView("/clothing");
 	    }	
 	}
 	
-	@PostMapping(path="/addhousingvoucher")
+	@PostMapping(path="/addclothing")
 	@ResponseBody
-	public RedirectView addhousingvoucher(@ModelAttribute Housingvoucher housingvoucher, HttpSession session) {
-		Housingvoucher house = new Housingvoucher();
-		house.setName(housingvoucher.getName());
-		house.setStreet(housingvoucher.getStreet());
-		house.setCity(housingvoucher.getCity());
-		house.setState(housingvoucher.getState());
-		house.setZipcode(housingvoucher.getZipcode());
-		house.setPhone(housingvoucher.getPhone());
-		house.setInfo(housingvoucher.getInfo());
-		house.setWebsite(housingvoucher.getWebsite());
-		housingvoucherRepository.save(house);
+	public RedirectView addclothing(@ModelAttribute Clothing clothing, HttpSession session) {
+		Clothing clothes = new Clothing();
+		clothes.setName(clothing.getName());
+		clothes.setStreet(clothing.getStreet());
+		clothes.setCity(clothing.getCity());
+		clothes.setState(clothing.getState());
+		clothes.setZipcode(clothing.getZipcode());
+		clothes.setPhone(clothing.getPhone());
+		clothes.setInfo(clothing.getInfo());
+		clothes.setWebsite(clothing.getWebsite());
+		clothingRepository.save(clothes);
 		
 		session.setAttribute("mySessionAttribute", "tempuser");
 		return new RedirectView("/dashboard");
 	}
 	
-	@GetMapping("/deletehousingvoucher/{id}")
-	public String deleteHousingvoucher(@PathVariable("id") Integer id, Model model, Food food, Foodvoucher foodvoucher, Transitional transitional, Housingvoucher housingvoucher, Clothing clothing, Clinic clinic) {
-		housingvoucherRepository.deleteById(id);
+	@GetMapping("/deleteclothing/{id}")
+	public String deleteClothing(@PathVariable("id") Integer id, Model model, Food food, Foodvoucher foodvoucher, Transitional transitional, Housingvoucher housingvoucher, Clothing clothing, Clinic clinic) {
+		clothingRepository.deleteById(id);
 		
 		List<Food> foods = (List<Food>) foodRepository.findAll();
 		model.addAttribute("foodpantries", foods);

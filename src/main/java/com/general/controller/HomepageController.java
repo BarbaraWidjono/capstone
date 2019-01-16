@@ -222,62 +222,62 @@ public class HomepageController{
 //		return "results";
 //	}
 //	
-	@GetMapping(path="/clothing")
-	public String clothing(Model model, Text text) {
-		List<Clothing> clothes = (List<Clothing>) clothingRepository.findAll();
-		
-		ArrayList<HashMap> coordinates = new ArrayList<HashMap>();
-		
-		for(Clothing cloth : clothes) {
-			//Create endpoint
-			String baseURL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
-			String street = cloth.getStreet();
-			String endURL = ",+Seattle,+WA&key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8";
-			String endpoint = baseURL + street + endURL;
-			System.out.println(endpoint);
-			
-			//api call
-			RestTemplate restTemplate = new RestTemplate();
-			String resourceURL = endpoint;
-			ResponseEntity<String> responsey = restTemplate.getForEntity(resourceURL, String.class);
-			String jsonString = responsey.getBody();
-			
-			GsonBuilder builder = new GsonBuilder();
-			builder.setPrettyPrinting();
-			Gson gson = builder.create();
-			Response response = gson.fromJson(jsonString, Response.class);
-			
-			//Convert coordinates to string
-			Double latitude = response.getResults().get(0).getGeometry().getLocation().getLat();
-			String latitudeString = String.valueOf(latitude);			
-			Double longitude = response.getResults().get(0).getGeometry().getLocation().getLng();
-			String longitudeString = String.valueOf(longitude);
-			
-			//Insert gps coordinates
-			HashMap<String, String> location = new HashMap<String, String>();
-			location.put("lat", latitudeString);
-			location.put("lng", longitudeString);
-
-			//Create infowindows
-			String infowindow = String.format("<div id=\"content\"><div id=\"siteNotice\"></div>\n" + 
-					"<h1 id=\"firstHeading\" class=\"firstHeading\">%s</h1>\n" + 
-					"<div id=\"bodyContent\">\n" + 
-					"<p>%s</p> \n" + 
-					"<p>%s</p> \n" + 
-					"<p>%s</p> \n" + 
-					"</div>\n" + 
-					"</div>", cloth.getName(), cloth.getStreet(), cloth.getPhone(), cloth.getInfo());
-			location.put("info", infowindow);
-			coordinates.add(location);
-			System.out.println(coordinates);			
-		}
-		
-		//passing data to template
-		model.addAttribute("sources", coordinates);
-		model.addAttribute("heading", "Clothing");
-		model.addAttribute("stores", clothes);
-		return "results";
-	}
+//	@GetMapping(path="/clothing")
+//	public String clothing(Model model, Text text) {
+//		List<Clothing> clothes = (List<Clothing>) clothingRepository.findAll();
+//		
+//		ArrayList<HashMap> coordinates = new ArrayList<HashMap>();
+//		
+//		for(Clothing cloth : clothes) {
+//			//Create endpoint
+//			String baseURL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
+//			String street = cloth.getStreet();
+//			String endURL = ",+Seattle,+WA&key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8";
+//			String endpoint = baseURL + street + endURL;
+//			System.out.println(endpoint);
+//			
+//			//api call
+//			RestTemplate restTemplate = new RestTemplate();
+//			String resourceURL = endpoint;
+//			ResponseEntity<String> responsey = restTemplate.getForEntity(resourceURL, String.class);
+//			String jsonString = responsey.getBody();
+//			
+//			GsonBuilder builder = new GsonBuilder();
+//			builder.setPrettyPrinting();
+//			Gson gson = builder.create();
+//			Response response = gson.fromJson(jsonString, Response.class);
+//			
+//			//Convert coordinates to string
+//			Double latitude = response.getResults().get(0).getGeometry().getLocation().getLat();
+//			String latitudeString = String.valueOf(latitude);			
+//			Double longitude = response.getResults().get(0).getGeometry().getLocation().getLng();
+//			String longitudeString = String.valueOf(longitude);
+//			
+//			//Insert gps coordinates
+//			HashMap<String, String> location = new HashMap<String, String>();
+//			location.put("lat", latitudeString);
+//			location.put("lng", longitudeString);
+//
+//			//Create infowindows
+//			String infowindow = String.format("<div id=\"content\"><div id=\"siteNotice\"></div>\n" + 
+//					"<h1 id=\"firstHeading\" class=\"firstHeading\">%s</h1>\n" + 
+//					"<div id=\"bodyContent\">\n" + 
+//					"<p>%s</p> \n" + 
+//					"<p>%s</p> \n" + 
+//					"<p>%s</p> \n" + 
+//					"</div>\n" + 
+//					"</div>", cloth.getName(), cloth.getStreet(), cloth.getPhone(), cloth.getInfo());
+//			location.put("info", infowindow);
+//			coordinates.add(location);
+//			System.out.println(coordinates);			
+//		}
+//		
+//		//passing data to template
+//		model.addAttribute("sources", coordinates);
+//		model.addAttribute("heading", "Clothing");
+//		model.addAttribute("stores", clothes);
+//		return "results";
+//	}
 	
 	@GetMapping(path="/clinic")
 	public String clinic(Model model, Text text) {
@@ -459,48 +459,48 @@ public class HomepageController{
 //		}
 		
 		//http://localhost:8080/addclothing?name=***&street=***&city=***&state=***&zipcode=***&phone=***&info=***&website=***
-		@PostMapping(path="/addclothing")
-		@ResponseBody
-		public RedirectView addclothing(@ModelAttribute Clothing clothing, HttpSession session) {
-			Clothing clothes = new Clothing();
-			clothes.setName(clothing.getName());
-			clothes.setStreet(clothing.getStreet());
-			clothes.setCity(clothing.getCity());
-			clothes.setState(clothing.getState());
-			clothes.setZipcode(clothing.getZipcode());
-			clothes.setPhone(clothing.getPhone());
-			clothes.setInfo(clothing.getInfo());
-			clothes.setWebsite(clothing.getWebsite());
-			clothingRepository.save(clothes);
-			
-			session.setAttribute("mySessionAttribute", "tempuser");
-			return new RedirectView("/dashboard");
-		}
+//		@PostMapping(path="/addclothing")
+//		@ResponseBody
+//		public RedirectView addclothing(@ModelAttribute Clothing clothing, HttpSession session) {
+//			Clothing clothes = new Clothing();
+//			clothes.setName(clothing.getName());
+//			clothes.setStreet(clothing.getStreet());
+//			clothes.setCity(clothing.getCity());
+//			clothes.setState(clothing.getState());
+//			clothes.setZipcode(clothing.getZipcode());
+//			clothes.setPhone(clothing.getPhone());
+//			clothes.setInfo(clothing.getInfo());
+//			clothes.setWebsite(clothing.getWebsite());
+//			clothingRepository.save(clothes);
+//			
+//			session.setAttribute("mySessionAttribute", "tempuser");
+//			return new RedirectView("/dashboard");
+//		}
 		
-		@GetMapping("/deleteclothing/{id}")
-		public String deleteClothing(@PathVariable("id") Integer id, Model model, Food food, Foodvoucher foodvoucher, Transitional transitional, Housingvoucher housingvoucher, Clothing clothing, Clinic clinic) {
-			clothingRepository.deleteById(id);
-			
-			List<Food> foods = (List<Food>) foodRepository.findAll();
-			model.addAttribute("foodpantries", foods);
-			
-			List<Foodvoucher> foodvouchers = (List<Foodvoucher>) foodvoucherRepository.findAll();
-			model.addAttribute("foodvouchers", foodvouchers);
-			
-			List<Transitional> houses = (List<Transitional>) transitionalRepository.findAll();
-			model.addAttribute("stores", houses);
-			
-			List<Housingvoucher> housevouchers = (List<Housingvoucher>) housingvoucherRepository.findAll();
-			model.addAttribute("vouchers", housevouchers);
-			
-			List<Clothing> clothes = (List<Clothing>) clothingRepository.findAll();
-			model.addAttribute("clothes", clothes);
-			
-			List<Clinic> clinics = (List<Clinic>) clinicRepository.findAll();
-			model.addAttribute("clinics", clinics);
-			
-			return "dashboard";
-		}
+//		@GetMapping("/deleteclothing/{id}")
+//		public String deleteClothing(@PathVariable("id") Integer id, Model model, Food food, Foodvoucher foodvoucher, Transitional transitional, Housingvoucher housingvoucher, Clothing clothing, Clinic clinic) {
+//			clothingRepository.deleteById(id);
+//			
+//			List<Food> foods = (List<Food>) foodRepository.findAll();
+//			model.addAttribute("foodpantries", foods);
+//			
+//			List<Foodvoucher> foodvouchers = (List<Foodvoucher>) foodvoucherRepository.findAll();
+//			model.addAttribute("foodvouchers", foodvouchers);
+//			
+//			List<Transitional> houses = (List<Transitional>) transitionalRepository.findAll();
+//			model.addAttribute("stores", houses);
+//			
+//			List<Housingvoucher> housevouchers = (List<Housingvoucher>) housingvoucherRepository.findAll();
+//			model.addAttribute("vouchers", housevouchers);
+//			
+//			List<Clothing> clothes = (List<Clothing>) clothingRepository.findAll();
+//			model.addAttribute("clothes", clothes);
+//			
+//			List<Clinic> clinics = (List<Clinic>) clinicRepository.findAll();
+//			model.addAttribute("clinics", clinics);
+//			
+//			return "dashboard";
+//		}
 		
 		//http://localhost:8080/addclinic?name=***&street=***&city=***&state=***&zipcode=***&phone=***&info=***&website=***
 		@PostMapping(path="/addclinic")
