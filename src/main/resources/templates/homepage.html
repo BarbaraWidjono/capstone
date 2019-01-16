@@ -3,15 +3,11 @@
 	<head lang="en">
 		<title>Homepage</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-		<link href="../static/css/results.css" th:href="@{/css/results.css}" rel="stylesheet" />
 		<link href="../static/css/homepage.css" th:href="@{/css/homepage.css}" rel="stylesheet" />
 	</head>
 	
 	<body>
 		<div class = "container">
-			<div class = "main">
-				<h1 class="header">North Seattle Resources</h1>
-			</div>
 			<div class = "sidebar">
 				<h3>Home</h3>
 				<a href="/">About</a><br>
@@ -31,6 +27,9 @@
 			       	<p><input type="text" th:field="*{loginpassword}" th:placeholder="password" /></p>
 			        <p><input type="submit" value="Login" /></p>
 			    </form>
+			</div>
+			<div class = "main">
+				<h1 class="header">North Seattle Resources</h1>
 			</div>
 		</div>		
 	</body>
