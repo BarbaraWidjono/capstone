@@ -5,7 +5,7 @@
 
 .login{
 	padding-top: 20px;
-	padding-right: 20px;
+	padding-right: 50px;
 }
 
 .formborder{
@@ -14,9 +14,27 @@
 	justify-content: flex-end;
 }
 
+.navbar{
+	padding-left: 50px;
+    padding-right: 50px;
+}
+
+/* .navbarleft{
+	width: 50vw;
+} */
+
+.navbarright{
+	position: absolute;
+	right: 0;
+}
+
 .navbar > ul{
 	display: flex;
-	flex-direction: row;
+	flex-direction: row;	
+}
+
+ul > li{
+	margin-right: 35px;
 }
 
 .header{
