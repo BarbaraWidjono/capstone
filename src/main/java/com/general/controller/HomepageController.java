@@ -12,6 +12,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -58,6 +59,9 @@ public class HomepageController{
 	public static final String AUTH_TOKEN = "";
 	
 	@Autowired
+    private Environment env;
+	
+	@Autowired
 	private FoodRepository foodRepository;
 	
 	@Autowired
@@ -80,6 +84,7 @@ public class HomepageController{
 	
 	@GetMapping(path = "/")
 	public String homepage(Model model, Login login) {
+		System.out.println(env.getProperty("app.twiliosid"));
 		return "homepage";
 	}
 	
