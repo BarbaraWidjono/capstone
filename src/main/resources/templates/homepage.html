@@ -1,36 +1,72 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-	<head lang="en">
+<!-- <html xmlns:th="http://www.thymeleaf.org"> -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<title>Homepage</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<!-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous" />
 		<link href="../static/css/homepage.css" th:href="@{/css/homepage.css}" rel="stylesheet" />
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	</head>
 	
 	<body>
-		<div class = "container">
-			<div class = "sidebar">
-				<h3>Home</h3>
-				<a href="/">About</a><br>
-				<h3>Food</h3>
-				<a href="/foodPantries">Food Pantries</a><br>
-				<a href="/foodvouchers">Food Vouchers</a>
-				<h3>Housing</h3>
-				<a href="/transitional">Transitional</a><br>
-				<a href="/housingvoucher">Housing Vouchers</a>
-				<h3>Clothing</h3>
-				<a href="/clothing">Clothing</a>
-				<h3>Healthcare</h3>
-				<a href="/clinic">Clinics</a>
-				<h3>Admin</h3>
+		<div class="containerz">
+			<div class="login">
 				<form action="#" th:action="@{/login}" th:object="${login}" method="post">
 			       	<p><input type="text" th:field="*{loginname}" th:placeholder="username" /></p>
 			       	<p><input type="text" th:field="*{loginpassword}" th:placeholder="password" /></p>
 			        <p><input type="submit" value="Login" /></p>
 			    </form>
 			</div>
-			<div class = "main">
+			
+					
+			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			  <!-- <a class="navbar-brand" href="#">Navbar</a> -->
+			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+			    <span class="navbar-toggler-icon"></span>
+			  </button>
+			  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+			    <ul class="navbar-nav">
+			      <li class="nav-item active">
+			        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+			      </li>
+			      <li class="nav-item dropdown">
+			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			          Food
+			        </a>
+			        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
+			          <a class="dropdown-item" href="/foodPantries">Pantries</a>
+			          <a class="dropdown-item" href="/foodvouchers">Vouchers</a>
+			        </div>
+			      </li>
+			      <li class="nav-item dropdown">
+			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			          Housing
+			        </a>
+			        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
+			          <a class="dropdown-item" href="/transitional">Transitional</a>
+			          <a class="dropdown-item" href="/housingvoucher">Vouchers</a>
+			        </div>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" href="/clothing">Clothing</a>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" href="/clinic">Health</a>
+			      </li>
+			    </ul>
+			  </div>
+			</nav>		
+					
+			<div class="intropic">
 				<h1 class="header">North Seattle Resources</h1>
 			</div>
-		</div>		
+		</div>
 	</body>
 </html>
+
