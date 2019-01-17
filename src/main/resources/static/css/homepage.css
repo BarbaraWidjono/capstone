@@ -3,7 +3,22 @@
 	flex-direction: column;
 }
 
+.login{
+	padding-top: 20px;
+	padding-right: 20px;
+}
+
+.formborder{
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+}
+
 .navbar > ul{
 	display: flex;
 	flex-direction: row;
+}
+
+.header{
+	color: red;
 }

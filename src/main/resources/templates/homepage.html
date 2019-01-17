@@ -17,7 +17,7 @@
 	<body>
 		<div class="containerz">
 			<div class="login">
-				<form action="#" th:action="@{/login}" th:object="${login}" method="post">
+				<form action="#" th:action="@{/login}" th:object="${login}" method="post" class="formborder">
 			       	<p><input type="text" th:field="*{loginname}" th:placeholder="username" /></p>
 			       	<p><input type="text" th:field="*{loginpassword}" th:placeholder="password" /></p>
 			        <p><input type="submit" value="Login" /></p>
