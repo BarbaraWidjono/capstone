@@ -85,13 +85,7 @@ public class FoodpantriesController{
 	
 	@Autowired
 	private UserRepository userRepository;
-	
-//	String sid = env.getProperty("app.twiliosid");
-//	String token = env.getProperty("app.twiliotoken");
-	
-//	public static final String ACCOUNT_SID = sid;
-//	public static final String AUTH_TOKEN = "";
-	
+		
 	@GetMapping(path="/foodPantries")
 	public String foodPantries(Model model, Text text) {
 		//Read from db
@@ -161,7 +155,6 @@ public class FoodpantriesController{
 		String token = env.getProperty("app.twiliotoken");
 		
 		Twilio.init(sid, token);
-//		Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
 	    Message message = Message.creator(new PhoneNumber(receiver),
 	        new PhoneNumber("+12064389389"), 

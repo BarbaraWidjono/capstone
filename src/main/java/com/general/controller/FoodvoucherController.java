@@ -12,6 +12,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -54,8 +55,9 @@ import com.google.gson.GsonBuilder;
 
 @Controller
 public class FoodvoucherController{
-	public static final String ACCOUNT_SID = "";
-	public static final String AUTH_TOKEN = "";
+	
+	@Autowired
+    private Environment env;
 	
 	@Autowired
 	private FoodRepository foodRepository;
@@ -143,8 +145,11 @@ public class FoodvoucherController{
 		String textBody = text.getName() + " " + text.getAddress() + " " + text.getResnumber() + " " + text.getInfo();
 		String receiver = "+1" + text.getNumber();
 		
-		Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-
+		String sid = env.getProperty("app.twiliosid");
+		String token = env.getProperty("app.twiliotoken");
+		
+		Twilio.init(sid, token);
+		
 	    Message message = Message.creator(new PhoneNumber(receiver),
 	        new PhoneNumber("+12064389389"), 
 	        textBody).create();
