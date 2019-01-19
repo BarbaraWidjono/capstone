@@ -126,9 +126,9 @@ public class ClothingController{
 			String infowindow = String.format("<div id=\"content\"><div id=\"siteNotice\"></div>\n" + 
 					"<h1 id=\"firstHeading\" class=\"firstHeading\">%s</h1>\n" + 
 					"<div id=\"bodyContent\">\n" + 
-					"<p>%s</p> \n" + 
-					"<p>%s</p> \n" + 
-					"<p>%s</p> \n" + 
+					"<p class=\"window\">%s</p> \n" + 
+					"<p class=\"window\">%s</p> \n" + 
+					"<p class=\"window\">%s</p> \n" + 
 					"</div>\n" + 
 					"</div>", cloth.getName(), cloth.getStreet(), cloth.getPhone(), cloth.getInfo());
 			location.put("info", infowindow);

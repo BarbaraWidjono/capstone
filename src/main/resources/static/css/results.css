@@ -123,3 +123,12 @@ li.nav-item:hover > .dropdown-menu{
 img{
 	height: 50px;
 }
+
+.window{
+	margin-top: 5px;
+}
+
+#firstHeading{
+	font-size: 20px;
+	margin-bottom: 5px;
+}

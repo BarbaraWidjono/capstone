@@ -127,9 +127,9 @@ public class FoodpantriesController{
 			String infowindow = String.format("<div id=\"content\"><div id=\"siteNotice\"></div>\n" + 
 					"<h1 id=\"firstHeading\" class=\"firstHeading\">%s</h1>\n" + 
 					"<div id=\"bodyContent\">\n" + 
-					"<p>%s</p> \n" + 
-					"<p>%s</p> \n" + 
-					"<p>%s</p> \n" + 
+					"<p class=\"window\">%s</p> \n" + 
+					"<p class=\"window\">%s</p> \n" + 
+					"<p class=\"window\">%s</p> \n" + 
 					"</div>\n" + 
 					"</div>", food.getName(), food.getStreet(), food.getPhone(), food.getInfo());
 			location.put("info", infowindow);
