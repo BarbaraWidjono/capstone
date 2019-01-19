@@ -17,6 +17,10 @@ p{
 	margin-bottom: -4px;
 }
 
+.storename{
+	text-decoration: underline;
+}
+
 .city{
 	display: flex;
 	flex-direction: row;

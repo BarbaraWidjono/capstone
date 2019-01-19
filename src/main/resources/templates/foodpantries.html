@@ -77,7 +77,7 @@
 				<div class="allresults">
 					<div class="result" th:id="${store.id}" th:each="store: ${stores}">
 	
-							<h3 th:text="${store.name}"/>
+							<h3 class= "storename" th:text="${store.name}"/>
 							<p th:text="${store.street}"/>
 							<div class="city">
 								<p th:text="${store.city}"/>
