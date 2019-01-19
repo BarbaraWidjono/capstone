@@ -2,8 +2,9 @@
 	color: green;
 }
 
-body{
-	padding: 50px;
+.content{
+	padding-left: 50px;
+	padding-right: 50px;
 }
 
 .city{
@@ -31,4 +32,57 @@ p{
 #map {
   	height: 600px;
   	width: 50%;
+  	/* z-index: -1; */
  }
+
+ .navbar{
+	padding-left: 50px;
+    padding-right: 50px;
+    position: -webkit-sticky;
+  	position: sticky;
+  	top: 0;
+}
+
+.navbar{
+	background-color: #e0eabf;
+	z-index: 1;
+}
+
+.navbarright{
+	position: absolute;
+	right: 0;
+}
+
+.navbar > ul{
+	display: flex;
+	flex-direction: row;	
+}
+
+ul > li{
+	margin-right: 35px;
+}
+
+li.nav-item:hover > .dropdown-menu{
+	display: block;
+}
+
+.navbar-expand-lg .navbar-nav {
+	padding-right: 10px;
+}
+
+.navbar .navbar-nav .nav-link:hover {
+	color: green;
+}
+
+.navbar .navbar-nav .nav-link{
+	color: black;
+	letter-spacing: 1.5px;
+}
+
+.dropdown-toggle::after {
+    display:none;
+}
+
+img{
+	height: 50px;
+}
