@@ -1,10 +1,20 @@
 .header{
 	color: green;
+	font-family: 'Raleway', sans-serif;
+	font-size: 45px;
+	font-weight: bold;
+	padding-top: 50px;
+	padding-bottom: 50px;
 }
 
 .content{
 	padding-left: 50px;
 	padding-right: 50px;
+}
+
+p{
+	margin-top: -4px;
+	margin-bottom: -4px;
 }
 
 .city{
@@ -14,10 +24,34 @@
 	margin-bottom: 5px;
 }
 
-p{
-	margin-top: 5px;
-	margin-bottom: 5px;
+.city > p{
+	margin-right: 5px;
 }
+ 
+ .textme{
+ 	font-weight: bold;
+ 	font-size: 14px;
+ }
+ 
+ i{
+ 	margin-right: 5px;
+ 	margin-top: 10px;
+ }
+ 
+ input[type=submit]{
+ 	height: 25px;
+ 	margin-top: 10px;
+ }
+ 
+ .result{
+ 	/* border-top: 1px solid #cecbcb; */
+ 	padding-top: 20px;
+ 	padding-bottom: 30px;
+ }
+ 
+ .result > h3{
+ 	color: green;
+ }
  
  .resultspage{
  	display: flex;
@@ -32,7 +66,6 @@ p{
 #map {
   	height: 600px;
   	width: 50%;
-  	/* z-index: -1; */
  }
 
  .navbar{

@@ -14,6 +14,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 		<link href="https://fonts.googleapis.com/css?family=Dancing+Script|Montserrat|Raleway" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 	</head>
 	<!-- <head lang="en">
 		<title>Food Pantries</title>
@@ -85,17 +86,17 @@
 							</div>
 							<p th:text="${store.phone}"/>
 							<p th:text="${store.info}"/>
-							<a th:target="_blank" th:href="${store.website}">Website</a>
-							<a th:target="_blank" th:href="@{https://www.google.com/maps/dir/?api=1&destination={location}+Seattle+WA(location=${store.street})}">Directions</a>
-							<p>Have information about this site texted to you</p>
+							<p><i class="fas fa-globe-americas"></i><a class="link" th:target="_blank" th:href="${store.website}">Website</a></p>
+							<p><i class="fas fa-directions"></i><a class="link" th:target="_blank" th:href="@{https://www.google.com/maps/dir/?api=1&destination={location}+Seattle+WA(location=${store.street})}">Directions</a></p>
+							<p class="textme">Have information about this site texted to you</p>
 							
 							<form action="#" th:action="@{/textfoodpantries}" th:object="${text}" method="post">
 						    	<input type="hidden" th:value="${store.name}" name="name" id="name" />				    	
 						       	<input type="hidden" th:value="${store.street}" name="address" id="address" />
 						       	<input type="hidden" th:value="${store.phone}" name="resnumber" id="resnumber" />
 						       	<input type="hidden" th:value="${store.info}" name="info" id="info" />
-						       	<p>Your phone number(example: 2063215678): <input type="tel" th:field="*{number}" pattern="[0-9]{10}"/></p>
-						        <p><input type="submit" value="Send" /></p>
+						       	<p class="textme">Enter your number(format: 2063215678): <input type="tel" th:field="*{number}" pattern="[0-9]{10}"/></p>
+						        <p class="textme"><input type="submit" value="Text me" /></p>
 						    </form>
 							 
 					</div>
