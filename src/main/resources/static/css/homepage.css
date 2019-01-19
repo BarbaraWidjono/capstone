@@ -59,6 +59,15 @@ img{
 }
 .header{
 	color: green;
+	font-family: 'Raleway', sans-serif;
+	font-size: 45px;
+	font-weight: bold;
+}
+
+.headerdescription{
+	font-family: 'Dancing Script', cursive;
+	font-size: 25px;
+	font-weight: bold;
 }
 
 .introtext{
