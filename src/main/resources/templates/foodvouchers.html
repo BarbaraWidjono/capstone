@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<title>Food Pantries</title>
+		<title>Food Vouchers</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous" />
 		<link href="../static/css/results.css" th:href="@{/css/results.css}" rel="stylesheet" />
 		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -75,8 +75,8 @@
 							</div>
 							<p th:text="${store.phone}"/>
 							<p th:text="${store.info}"/>
-							<a th:target="_blank" th:href="${store.website}">Website</a>
-							<a th:target="_blank" th:href="@{https://www.google.com/maps/dir/?api=1&destination={location}+Seattle+WA(location=${store.street})}">Directions</a>
+							<p><i class="fas fa-globe-americas"></i><a th:target="_blank" th:href="${store.website}">Website</a></p>
+							<p><i class="fas fa-directions"></i><a th:target="_blank" th:href="@{https://www.google.com/maps/dir/?api=1&destination={location}+Seattle+WA(location=${store.street})}">Directions</a></p>
 							<p class="textme">Have information about this site texted to you</p>
 							
 							<form action="#" th:action="@{/textfoodvouchers}" th:object="${text}" method="post">
@@ -84,8 +84,8 @@
 						       	<input type="hidden" th:value="${store.street}" name="address" id="address" />
 						       	<input type="hidden" th:value="${store.phone}" name="resnumber" id="resnumber" />
 						       	<input type="hidden" th:value="${store.info}" name="info" id="info" />
-						       	<p class="textme">Your phone number(example: 2063215678): <input type="tel" th:field="*{number}" pattern="[0-9]{10}" /></p>
-						        <p class="textme"><input type="submit" value="Send" /></p>
+						       	<p class="textme">Enter your number(format: 2063215678): <input type="tel" th:field="*{number}" pattern="[0-9]{10}" /></p>
+						        <p class="textme"><input type="submit" value="Text me" /></p>
 						    </form>
 							 
 					</div>

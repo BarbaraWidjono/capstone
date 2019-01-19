@@ -1,46 +1,99 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-	<head lang="en">
-		<title>Food Pantries</title>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<title>Housing Vouchers</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous" />
 		<link href="../static/css/results.css" th:href="@{/css/results.css}" rel="stylesheet" />
-		
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+		<link href="https://fonts.googleapis.com/css?family=Dancing+Script|Montserrat|Raleway" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 	</head>
 	
+	
 	<body>
+	
+		<nav class="navbar navbar-expand-lg">
+				<div class="navbarleft">
+					<a href="/"><img th:src="@{/images/tree.jpeg}" alt="memorynotfound logo"/></a>
+				</div>
+				<div class="navbarright">
+				  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+				    <span class="navbar-toggler-icon"></span>
+				  </button>
+				  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+				    <ul class="navbar-nav">
+				      <li class="nav-item active">
+				        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+				      </li>
+				      <li class="nav-item dropdown">
+				        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				          Food
+				        </a>
+				        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
+				          <a class="dropdown-item" href="/foodPantries">Pantries</a>
+				          <a class="dropdown-item" href="/foodvouchers">Vouchers</a>
+				        </div>
+				      </li>
+				      <li class="nav-item dropdown">
+				        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				          Housing
+				        </a>
+				        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
+				          <a class="dropdown-item" href="/transitional">Transitional</a>
+				          <a class="dropdown-item" href="/housingvoucher">Vouchers</a>
+				        </div>
+				      </li>
+				      <li class="nav-item">
+				        <a class="nav-link" href="/clothing">Clothing</a>
+				      </li>
+				      <li class="nav-item">
+				        <a class="nav-link" href="/clinic">Health</a>
+				      </li>
+				      <li class="nav-item">
+				        <a class="nav-link" href="#">Contact</a>
+				      </li>
+				    </ul>
+				  </div>
+			  </div>
+			</nav>		
+		<div class="content">
 		<h1 class="header" th:text="${heading}"/>
 		
-		<div class="resultspage">
-			<div class="allresults">
-				<div class="result" th:id="${store.id}" th:each="store: ${stores}">
-
-						<h3 th:text="${store.name}"/>
-						<p th:text="${store.street}"/>
-						<div class="city">
-							<p th:text="${store.city}"/>
-							<p th:text="${store.state}"/>
-							<p th:text="${store.zipcode}"/>
-						</div>
-						<p th:text="${store.phone}"/>
-						<p th:text="${store.info}"/>
-						<a th:target="_blank" th:href="${store.website}">Website</a>
-						<a th:target="_blank" th:href="@{https://www.google.com/maps/dir/?api=1&destination={location}+Seattle+WA(location=${store.street})}">Directions</a>
-						<p>Have information about this site texted to you</p>
-						
-						<form action="#" th:action="@{/texthousingvoucher}" th:object="${text}" method="post">
-					    	<input type="hidden" th:value="${store.name}" name="name" id="name" />				    	
-					       	<input type="hidden" th:value="${store.street}" name="address" id="address" />
-					       	<input type="hidden" th:value="${store.phone}" name="resnumber" id="resnumber" />
-					       	<input type="hidden" th:value="${store.info}" name="info" id="info" />
-					       	<p>Your phone number(example: 2063215678): <input type="tel" th:field="*{number}" pattern="[0-9]{10}" /></p>
-					        <p><input type="submit" value="Send" /></p>
-					    </form>
-						 
+			<div class="resultspage">
+				<div class="allresults">
+					<div class="result" th:id="${store.id}" th:each="store: ${stores}">
+	
+							<h3 class= "storename" th:text="${store.name}"/>
+							<p th:text="${store.street}"/>
+							<div class="city">
+								<p th:text="${store.city}"/>
+								<p th:text="${store.state}"/>
+								<p th:text="${store.zipcode}"/>
+							</div>
+							<p th:text="${store.phone}"/>
+							<p th:text="${store.info}"/>
+							<p><i class="fas fa-globe-americas"></i><a th:target="_blank" th:href="${store.website}">Website</a></p>
+							<p><i class="fas fa-directions"></i><a th:target="_blank" th:href="@{https://www.google.com/maps/dir/?api=1&destination={location}+Seattle+WA(location=${store.street})}">Directions</a></p>
+							<p class="textme">Have information about this site texted to you</p>
+							
+							<form action="#" th:action="@{/texthousingvoucher}" th:object="${text}" method="post">
+						    	<input type="hidden" th:value="${store.name}" name="name" id="name" />				    	
+						       	<input type="hidden" th:value="${store.street}" name="address" id="address" />
+						       	<input type="hidden" th:value="${store.phone}" name="resnumber" id="resnumber" />
+						       	<input type="hidden" th:value="${store.info}" name="info" id="info" />
+						       	<p class="textme">Enter your number(format: 2063215678): <input type="tel" th:field="*{number}" pattern="[0-9]{10}" /></p>
+						        <p class="textme"><input type="submit" value="Text me" /></p>
+						    </form>
+							 
+					</div>
 				</div>
+				<div id="map"></div>
 			</div>
-			<div id="map"></div>
 		</div>
-		
 		<script th:inline="javascript">
 		
 		
