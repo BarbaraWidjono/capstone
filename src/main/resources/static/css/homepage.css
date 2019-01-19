@@ -22,6 +22,13 @@ input{
 .navbar{
 	padding-left: 50px;
     padding-right: 50px;
+    position: -webkit-sticky;
+  	position: sticky;
+  	top: 0;
+}
+
+.navbar{
+	background-color: #e0eabf;
 }
 
 .navbarright{
@@ -46,8 +53,13 @@ li.nav-item:hover > .dropdown-menu{
 	padding-right: 10px;
 }
 
-.navbar-light .navbar-nav .nav-link:hover {
+.navbar .navbar-nav .nav-link:hover {
 	color: green;
+}
+
+.navbar .navbar-nav .nav-link{
+	color: black;
+	letter-spacing: 1.5px;
 }
 
 .dropdown-toggle::after {
