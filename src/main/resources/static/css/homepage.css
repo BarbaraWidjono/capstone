@@ -52,6 +52,12 @@ img{
 	color: green;
 }
 
+.introtext{
+	vertical-align: middle;
+	display: inline-block;
+	padding-top: 220px;
+}
+
 .intropic{
 	text-align: center;
 	width: 100%;
