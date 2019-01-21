@@ -73,7 +73,7 @@ p{
  .phone{
  	width: 75%;
  	height: 200px;
- 	background-color: gray;
+ 	background-color: #c0caa2;
  	margin-bottom: 25px;
  	border: 1px solid gray;
  }
@@ -152,4 +152,10 @@ img{
 	display: flex;
 	flex-direction: column;
 	width: 50vw;
+	text-align: center;
+}
+
+.instructions{
+	font-size: 30px;
+	padding-top: 50px;
 }
