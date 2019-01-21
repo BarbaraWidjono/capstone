@@ -136,7 +136,11 @@ public class ClothingController{
 			System.out.println(coordinates);			
 		}
 		
+		//phone call capability token
+		String sid = env.getProperty("app.capability");
+		
 		//passing data to template
+		model.addAttribute("apptoken", sid);
 		model.addAttribute("sources", coordinates);
 		model.addAttribute("heading", "Clothing");
 		model.addAttribute("stores", clothes);
