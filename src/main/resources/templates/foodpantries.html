@@ -11,6 +11,8 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 		<link href="https://fonts.googleapis.com/css?family=Dancing+Script|Montserrat|Raleway" rel="stylesheet">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  		<script type="text/javascript" src="https://media.twiliocdn.com/sdk/js/client/v1.6/twilio.min.js"></script>
 	</head>
 	
 	
@@ -90,9 +92,28 @@
 							 
 					</div>
 				</div>
-				<div id="map"></div>
+				<div class="mapandphone">
+					<div class="phone">
+						<div id="controls">
+						    <div id="info">
+						      <div id="output-selection">
+						      </div>
+						    </div>
+						    <div id="call-controls">
+						      <p class="instructions">Make a Call:</p>
+						      <input id="phone-number" type="text" placeholder="Enter a phone # or client name" />
+						      <button id="button-call">Call</button>
+						      <button id="button-hangup">Hangup</button>
+						    </div>
+						  </div>
+					</div>	
+					<div id="map"></div>
+				</div>
 			</div>
 		</div>
+		
+		
+		  
 		<script th:inline="javascript">
 		
 		
@@ -139,14 +160,74 @@
 				  
 			  }  
 			}
+		
+		$(function () {
+			  
+			  var device;
+
+			  var customtoken = [[${apptoken}]];
+			  
+			  $.getJSON(customtoken)
+			    .then(function (data) {
+			      
+			      // Setup Twilio.Device
+			      device = new Twilio.Device(data.token);
+
+			      device.on('ready',function (device) {
+			        document.getElementById('call-controls').style.display = 'block';
+			      });
+
+			      device.on('error', function (error) {
+			        log('Twilio.Device Error: ' + error.message);
+			      });
+
+			      device.on('connect', function (conn) {
+			        document.getElementById('button-call').style.display = 'none';
+			        document.getElementById('button-hangup').style.display = 'inline';
+			        bindVolumeIndicators(conn);
+			      });
+
+			      device.on('disconnect', function (conn) {
+			        document.getElementById('button-call').style.display = 'inline';
+			        document.getElementById('button-hangup').style.display = 'none';
+			      });
+
+			      setClientNameUI(data.identity);
+
+			      device.audio.on('deviceChange', updateAllDevices.bind(device));
+
+			    })
+			    .catch(function (err) {
+			      console.log(err);
+			    });
+
+			  // Bind button to make call
+			  document.getElementById('button-call').onclick = function () {
+			    // get the phone number to connect the call to
+			    var params = {
+			      To: document.getElementById('phone-number').value
+			    };
+
+			    if (device) {
+			      device.connect(params);
+			    }
+			  };
+
+			  // Bind button to hangup call
+			  document.getElementById('button-hangup').onclick = function () {
+			    if (device) {
+			      device.disconnectAll();
+			    }
+			  };
+
+			});
+		
 		</script>
 		
-		<!-- <script th:inline="javascript" async defer
-		src=[[${googlecall}]]>
-		</script> -->
-		
+	
 		<script async defer
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8&callback=initMap">
 		</script>
+		
 	</body>
 </html>

@@ -137,16 +137,10 @@ public class FoodpantriesController{
 			System.out.println(coordinates);			
 		}
 		
-		//Google maps initialization
-		//https://maps.googleapis.com/maps/api/js?key=AIzaSyDY4Cy_ubPYVZrVyzU3Ylrxg63bwe0xZn8&callback=initMap
-//		String gkey = env.getProperty("app.maps");
-//		String startURL = "https://maps.googleapis.com/maps/api/js?key=";
-//		String endURL = "&callback=initMap";
-//		String totalURL = startURL + gkey + endURL;
-//		System.out.println(totalURL);
+		//phone call capability token
+		String sid = env.getProperty("app.capability");
 		
-		//passing data to template
-//		model.addAttribute("googlecall", totalURL);
+		model.addAttribute("apptoken", sid);
 		model.addAttribute("sources", coordinates);
 		model.addAttribute("heading", "Food Pantries");
 		model.addAttribute("stores", foods);

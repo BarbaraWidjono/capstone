@@ -4,7 +4,7 @@
 	font-size: 45px;
 	font-weight: bold;
 	padding-top: 50px;
-	padding-bottom: 50px;
+	padding-bottom: 75px;
 }
 
 .content{
@@ -49,8 +49,9 @@ p{
  
  .result{
  	/* border-top: 1px solid #cecbcb; */
- 	padding-top: 20px;
+ 	padding-top: 0px;
  	padding-bottom: 30px;
+ 	margin-top: 0px;
  }
  
  .result > h3{
@@ -60,16 +61,26 @@ p{
  .resultspage{
  	display: flex;
  	flex-direction: row;
+ 	width: 100vw;
  }
  
  .allresults{
  	display: flex;
  	flex-direction: column;
+ 	width: 50vw;
+ }
+ 
+ .phone{
+ 	width: 75%;
+ 	height: 200px;
+ 	background-color: gray;
+ 	margin-bottom: 25px;
+ 	border: 1px solid gray;
  }
  
 #map {
-  	height: 600px;
-  	width: 50%;
+  	height: 400px;
+  	width: 75%;
  }
 
  .navbar{
@@ -134,5 +145,11 @@ img{
 }
 
 .allresults{
+	width: 50vw;
+}
+
+.mapandphone{
+	display: flex;
+	flex-direction: column;
 	width: 50vw;
 }
