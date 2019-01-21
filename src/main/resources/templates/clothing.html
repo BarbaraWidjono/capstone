@@ -88,7 +88,24 @@
 							 
 					</div>
 				</div>
-				<div id="map"></div>
+				<!-- <div id="map"></div> -->
+				<div class="mapandphone">
+					<div class="phone">
+						<div id="controls">
+						    <div id="info">
+						      <div id="output-selection">
+						      </div>
+						    </div>
+						    <div id="call-controls">
+						      <p class="instructions"><i class="fas fa-phone-square"></i>Make a Call:</p>
+						      <input id="phone-number" type="text" placeholder="Enter a phone #" />
+						      <button id="button-call">Call</button>
+						      <button id="button-hangup">Hangup</button>
+						    </div>
+						  </div>
+					</div>	
+					<div id="map"></div>
+				</div>
 			</div>
 		</div>
 		<script th:inline="javascript">
